@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+{% block title %}Contact Vetri | Enquire for Online IT Courses{% endblock %}
+{% block meta_description %}
+Contact Vetri Training to enquire about online IT courses with placement support. Get course details, guidance, and start your career today.
+{% endblock %}
 
 {% block content %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -21,7 +25,7 @@
                     <p class="text-gray-700 text-[15px] mb-6">
                         Have questions? We're here to help you start your learning journey
                     </p>
-                    <button class="bg-[#FF9C00] text-white font-semibold py-1.5 px-2 rounded-md shadow-md hover:bg-[#e68a00] transition-colors">
+                    <button onclick="sendWhatsApp()" class="bg-[#FF9C00] text-white font-semibold py-1.5 px-2 rounded-md shadow-md hover:bg-[#e68a00] transition-colors">
                         Free Consultation
                     </button>
                 </div>
@@ -45,7 +49,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-bold text-gray-800 mb-1">Phone Number</label>
-                                    <input type="tel" id="eq_phone" required maxlength="10" minlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter exactly 10 digits" placeholder="10-digit mobile number" class="w-full border-2 border-gray-200 rounded-md py-1 px-4 focus:outline-none focus:border-[#6C2CB1]">
+                                    <input type="tel" id="eq_phone" required pattern="[0-9]{7,15}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter digits" placeholder="Mobile number" class="w-full border-2 border-gray-200 rounded-md py-1 px-4 focus:outline-none focus:border-[#6C2CB1]">
                                 </div>
                                 <div class="flex flex-col">
                                     <label class="text-sm font-bold text-gray-800 mb-1">
@@ -77,44 +81,43 @@
     </section>
 
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h2 class="text-xl font-semibold mb-4">We are here for You</h2>
+        <h2 class="text-2xl font-semibold mb-4">We are here for You</h2>
         
-        <div class="flex flex-col lg:flex-row gap-12 h-[500px]">
-            
+        <div class="flex flex-col lg:flex-row gap-12 h-[600px] lg:h-[360px]">
             <div class="w-full lg:w-1/4 flex flex-col gap-5 h-full">
-                <div class="border-2 border-[#EAE0F5] rounded-xl py-2 px-4 flex flex-col justify-center flex-1 bg-white">
-                    <div class="w-12 h-12 bg-[#6C2CB1] rounded-full flex items-center justify-center text-white mb-4">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                {% for card in contact_cards %}
+                    <div class="border-2 border-[#EAE0F5] rounded-xl py-2 px-4 flex flex-col justify-center flex-1 bg-white">
+                        
+                        <div class="w-12 h-12 bg-[#6C2CB1] rounded-full flex items-center justify-center text-white mb-4">
+                            {% if card.icon == 'clock' %}
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            {% elif card.icon == 'phone' %}
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            {% elif card.icon == 'mail' %}
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            {% elif card.icon == 'location' %}
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            {% endif %}
+                        </div>
+                        
+                        <h4 class="font-semibold text-black mb-1">{{ card.title }}</h4>
+                        
+                        <p class="text-[14px] text-gray-700 font-medium">{{ card.details|linebreaksbr }}</p>
+
                     </div>
-                    <h4 class="font-semibold text-black mb-1">Email Us</h4>
-                    <p class="text-[14px] text-gray-700 font-medium">vetritechnologysolution@gmail.com</p>
-                </div>
-                <div class="border-2 border-[#EAE0F5] rounded-xl py-2 px-4  flex flex-col justify-center flex-1 bg-white">
-                    <div class="w-12 h-12 bg-[#6C2CB1] rounded-full flex items-center justify-center text-white mb-4">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                    </div>
-                    <h4 class="font-semibold text-black mb-1">Call Us</h4>
-                    <p class="text-[14px] text-gray-700 font-medium">8438558527<br>8438164827</p>
-                </div>
-                <div class="border-2 border-[#EAE0F5] rounded-xl py-2 px-4 flex flex-col justify-center flex-1 bg-white">
-                    <div class="w-12 h-12 bg-[#6C2CB1] rounded-full flex items-center justify-center text-white mb-4">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h4 class="font-semibold text-black mb-1">Office Hours</h4>
-                    <p class="text-[14px] text-gray-700 font-medium">Mon - Sat : 10:00 AM - 5:00 PM<br>Sunday closed</p>
-                </div>
+                {% empty %}
+                        <p class="text-gray-500">Contact information coming soon.</p>
+                {% endfor %}
             </div>
 
             <div class="w-full lg:w-3/4 h-full rounded-2xl overflow-hidden shadow-md relative z-0">
                 <div id="dynamic-map" class="w-full h-full"></div>
             </div>
-
         </div>
     </section>
 
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <h2 class="text-2xl md:text-xl font-semibold text-center text-black mb-12">Visit Our Branch</h2>
-        
+        <h2 class="text-2xl font-semibold text-center text-black mb-16">Visit Our Branches</h2>
         <div class="grid grid-cols-1 md:px-28 md:grid-cols-2 gap-8 lg:gap-12">
             {% for branch in branches %}
             <div class="border-2 border-[#EAE0F5] rounded-xl p-4 text-center hover:shadow-lg transition-shadow bg-white flex flex-col items-center relative">
@@ -139,31 +142,81 @@
         </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="text-2xl font-extrabold text-black">Our Learning Environment</h2>
-            <a href="{% url 'image_gallery' %}" class="text-[#6C2CB1] font-bold text-sm flex items-center hover:underline">View all <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a>
+    {% for category_name, images in grouped_env_images.items %}
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-sans">
+        
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="lg:text-2xl text-xl font-semibold text-black">{{ category_name }}</h2>
+            
+            <a href="{% url 'image_gallery' %}" class="text-[#6C2CB1] font-bold text-sm text-center flex items-center hover:underline transition-all">
+                View all
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+            </a>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {% for env in env_images|slice:":3" %} 
-            <div class="rounded-2xl overflow-hidden h-64 shadow-md group relative">
-                <img src="{{ env.image.url }}" alt="{{ env.alt_text }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+            {% for env in images|slice:":3" %} 
+            
+            <div class="rounded-2xl overflow-hidden h-64 shadow-md group relative {% if env.media_type == 'video' and env.video %}cursor-pointer{% endif %}"
+                 {% if env.media_type == 'video' and env.video %}onclick="openVideoModal('{{ env.video.url }}')"{% endif %}>
+                
+                {% if env.media_type == 'video' and env.video %}
+                    {% if env.image %}
+                        <img src="{{ env.image.url }}" alt="{{ env.alt_text }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    {% else %}
+                        <video src="{{ env.video.url }}#t=0.1" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" muted playsinline preload="metadata"></video>
+                    {% endif %}
+                    
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors duration-300">
+                        <svg class="w-16 h-16 text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+
+                {% else %}
+                    <img src="{{ env.image.url }}" alt="{{ env.alt_text }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                {% endif %}
+
             </div>
-            {% empty %}
-            <div class="col-span-3 text-center text-gray-500">No environment images uploaded yet.</div>
             {% endfor %}
         </div>
+
     </section>
+{% empty %}
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center text-gray-500">No environment media uploaded yet.</div>
+    </section>
+{% endfor %}
+
+<div id="videoModal" onclick="closeVideoModal()" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/90 backdrop-blur-sm transition-opacity duration-300 opacity-0">
+    
+    <div onclick="event.stopPropagation()" class="relative w-full max-w-5xl mx-4 transform scale-95 transition-transform duration-300" id="videoModalContent">
+        
+        <button onclick="closeVideoModal()" class="absolute -top-12 right-0 text-white hover:text-[#FF9C00] bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <div class="rounded-xl overflow-hidden shadow-2xl bg-black aspect-video flex items-center justify-center border border-white/10">
+            <video id="modalVideoPlayer" class="w-full h-full outline-none" controls controlsList="nodownload">
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+    </div>
+</div>
 
     <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mb-16">
-        <h2 class="text-2xl md:text-3xl font-extrabold text-center text-black mb-10">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-semibold text-center text-black mb-10">Frequently Asked Questions</h2>
         
         <div class="space-y-4">
             {% for faq in faqs %}
             <div class="faq-item rounded-xl overflow-hidden bg-[#F3E8FF] transition-all duration-300">
                 <button class="faq-btn w-full text-left px-6 py-5 flex justify-between items-center focus:outline-none">
-                    <span class="font-extrabold text-black text-[16px] pr-4">{{ faq.question }}</span>
+                    <span class="font-semibold text-black text-[16px] pr-4">{{ faq.question }}</span>
                     <svg class="faq-icon w-5 h-5 text-[#6C2CB1] transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 <div class="faq-answer hidden px-6 pb-5 text-[15px] text-gray-700 font-medium">
@@ -175,6 +228,44 @@
     </section>
 
 </div>
+
+<script>
+function sendWhatsApp() {
+  let message = "Hello, I’m interested in enrolling in an IT course. Can you guide me on the best course, fees, and upcoming batches?";
+  let url = "https://wa.me/918438164827?text=" + encodeURIComponent(message);
+  window.open(url, "_blank");
+}
+</script>
+
+<script>
+    function openVideoModal(videoUrl) {
+        const modal = document.getElementById('videoModal');
+        const content = document.getElementById('videoModalContent');
+        const player = document.getElementById('modalVideoPlayer');
+        player.src = videoUrl;
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            content.classList.remove('scale-95');
+            player.play().catch(e => console.log("Autoplay blocked by browser:", e));
+        }, 10);
+    }
+
+    function closeVideoModal() {
+        const modal = document.getElementById('videoModal');
+        const content = document.getElementById('videoModalContent');
+        const player = document.getElementById('modalVideoPlayer');
+
+        modal.classList.add('opacity-0');
+        content.classList.add('scale-95');
+
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            player.pause();
+            player.src = ""; 
+        }, 300);
+    }
+</script>
 
 <script id="branches-data" type="application/json">
     {{ branches_json|safe }}
@@ -238,100 +329,115 @@
     });
 
     function submitContactEnquiry() {
-    const form = document.getElementById('contactEnquiryForm');
- 
-    if (!form.reportValidity()) return;
- 
-    const fullName       = document.getElementById('eq_name').value.trim();
-    const email          = document.getElementById('eq_email').value.trim();
-    const phone          = document.getElementById('eq_phone').value.trim();
-    // FIX: correct ID — was 'eq_course', must be 'course_interest'
-    const courseInterest = document.getElementById('course_interest').value.trim();
-    const message        = document.getElementById('eq_msg').value.trim();
- 
-    const nameRegex = /^[A-Za-z\s\.\-']+$/;
-    if (!nameRegex.test(fullName)) {
-        alert("Please enter a valid Name (letters only).");
-        return;
-    }
- 
-    const phoneRegex = /^\d{10}$/;
-    if (!phoneRegex.test(phone)) {
-        alert("Please enter exactly 10 digits for your Phone Number.");
-        return;
-    }
- 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert("Please enter a valid Email Address.");
-        return;
-    }
- 
-    // FIX: validate courseInterest is selected
-    if (!courseInterest) {
-        alert("Please select a course you are interested in.");
-        return;
-    }
- 
-    const btn = document.getElementById('btn-submit-enquiry');
-    btn.innerHTML = 'Submitting...';
-    btn.disabled = true;
- 
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
+        const form = document.getElementById('contactEnquiryForm');
+
+        if (!form.reportValidity()) return;
+
+        const fullName       = document.getElementById('eq_name').value.trim();
+        const email          = document.getElementById('eq_email').value.trim();
+        const phone          = document.getElementById('eq_phone').value.trim();
+        const courseInterest = document.getElementById('course_interest').value.trim();
+        const message        = document.getElementById('eq_msg').value.trim();
+
+        const nameRegex = /^[A-Za-z\s\.\-']+$/;
+        if (!nameRegex.test(fullName)) {
+            alert("Please enter a valid Name (letters only).");
+            return;
+        }
+
+        const phoneRegex = /^\d{7,15}$/;
+        if (!phoneRegex.test(phone)) {
+            alert("Please enter your Phone Number.");
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid Email Address.");
+            return;
+        }
+
+        if (!courseInterest) {
+            alert("Please select a course you are interested in.");
+            return;
+        }
+
+        const btn = document.getElementById('btn-submit-enquiry');
+        const originalText = btn.innerHTML; // Save original "Submit" text
+        
+        // Tailwind SVG Spinner
+        btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Sending...`;
+        btn.disabled = true;
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
                 }
             }
+            return cookieValue;
         }
-        return cookieValue;
-    }
- 
-    const csrfInput = document.querySelector('#contactEnquiryForm [name=csrfmiddlewaretoken]');
-    const csrfToken = csrfInput ? csrfInput.value : getCookie('csrftoken');
- 
-    const payload = {
-        full_name: fullName,
-        email: email,
-        phone: phone,
-        course_interest: courseInterest,
-        message: message,
-    };
- 
-    fetch('/api/submit-enquiry/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken
-        },
-        body: JSON.stringify(payload)
-    })
-    .then(response => {
-        return response.json().catch(() => {
-            throw new Error("Server returned an invalid response.");
+
+        const csrfInput = document.querySelector('#contactEnquiryForm [name=csrfmiddlewaretoken]');
+        const csrfToken = csrfInput ? csrfInput.value : getCookie('csrftoken');
+
+        const payload = {
+            full_name: fullName,
+            email: email,
+            phone: phone,
+            course_interest: courseInterest,
+            message: message,
+        };
+
+        fetch('/api/submit-enquiry/', { // Make sure this URL matches your urls.py path exactly
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => {
+            return response.json().catch(() => {
+                throw new Error("Server returned an invalid response.");
+            });
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                // Change button to Success state visually
+                btn.innerHTML = '✅ Enquiry Sent!';
+                btn.classList.remove('bg-[#FF9C00]', 'hover:bg-[#e68a00]'); 
+                btn.classList.add('bg-green-500', 'hover:bg-green-600');    
+
+                // Wait a moment so the user sees it, then alert and reset
+                setTimeout(() => {
+                    alert('Thank you! Your enquiry has been submitted successfully.');
+                    form.reset();
+                    
+                    // Revert button back to normal
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('bg-green-500', 'hover:bg-green-600');
+                    btn.classList.add('bg-[#FF9C00]', 'hover:bg-[#e68a00]');
+                    btn.disabled = false;
+                }, 1000);
+            } else {
+                alert('Submission failed: ' + data.message);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        })
+        .catch(error => {
+            console.error('Submission Error:', error);
+            alert('A server error occurred while submitting your form. Please try again.');
+            btn.innerHTML = originalText;
+            btn.disabled = false;
         });
-    })
-    .then(data => {
-        if (data.status === 'success') {
-            alert('Thank you! Your enquiry has been submitted successfully.');
-            form.reset();
-        } else {
-            alert('Error: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Submission Error:', error);
-        alert('A server error occurred while submitting your form. Please try again.');
-    })
-    .finally(() => {
-        btn.innerHTML = 'Submit';
-        btn.disabled = false;
-    });
-}
+    }
 </script>
 {% endblock %}

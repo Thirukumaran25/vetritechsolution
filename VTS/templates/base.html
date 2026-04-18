@@ -5,10 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VTS</title>
+    <title>{% block title %}Online IT Courses with Placement | Vetri{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Explore job-oriented online IT courses with placement support. Learn Python, Digital Marketing, and Data Analytics with live training and real projects.{% endblock %}">
+    <meta name="google-site-verification" content="TXgTIPV-xVHxRD0gw-8uar1YbbCRZ4MBrfjy597wleA" />
     <link rel="icon" href="{% static 'images/VTSlogo.jpg' %}" type="image/jpg" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XLW72KCDKD"></script> 
+    <script>   window.dataLayer = window.dataLayer || [];   function gtag(){dataLayer.push(arguments);}   gtag('js', new Date());   gtag('config', 'G-XLW72KCDKD'); </script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
         *{
@@ -31,22 +36,18 @@
         </p>
 
         <div class="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-4 text-xs md:text-sm">
-            <span class="flex items-center">
-                <i class='bx bx-envelope text-red-500 text-2xl mr-1'></i>
-                <a href="mailto:vetritechnologysolutions@gmail.com">vetritechnologysolutions@gmail.com</a>
-            </span>
-            <span class="flex items-center">
+            <span class="flex items-center px-4">
                 <i class='bx bx-phone-outgoing text-red-500 text-2xl mr-1'></i>
-                <a href="tel:8438558527">8438558527</a>
+                <a href="tel:8438558527">+91-8438164827</a>
             </span>
         </div>
     </div>
 
     <!-- Animated Banner -->
-    <h1 id="animatedText"
+    <p id="animatedText"
         class="bg-[#6621BA] p-2 text-center text-white text-lg md:text-xl font-bold">
         India's First IT Training Institute with 100% Placement 👍
-    </h1>
+    </p>
 
     <!-- Navbar -->
 <nav class="bg-[#6C2CB1] mt-6 relative flex flex-col md:flex-row items-center px-4 md:px-8 py-4 md:py-0 md:h-[52px] w-full shadow-md z-50" style="overflow: visible;">
@@ -189,9 +190,9 @@
         <div class="w-full lg:w-[12%] flex-shrink-0 mt-2 lg:mt-0">
             <h3 class="font-bold text-[16px] xl:text-[18px] mb-5 text-white">Quick Links</h3>
             <ul class="space-y-4 text-[13px] xl:text-[14.5px] text-white">
-                <li><a href="about" class="hover:text-[#FF9C00] transition-colors duration-200 whitespace-nowrap">About Us</a></li>
-                <li><a href="contact" class="hover:text-[#FF9C00] transition-colors duration-200 whitespace-nowrap">Contact Us</a></li>
-                <li><a href="courses" class="hover:text-[#FF9C00] transition-colors duration-200 whitespace-nowrap">Courses</a></li>
+                <li><a href="{% url 'about' %}" class="hover:text-[#FF9C00] transition-colors duration-200 whitespace-nowrap">About Us</a></li>
+                <li><a href="{% url 'contact' %}" class="hover:text-[#FF9C00] transition-colors duration-200 whitespace-nowrap">Contact Us</a></li>
+                <li><a href="{% url 'courses' %}" class="hover:text-[#FF9C00] transition-colors duration-200 whitespace-nowrap">Courses</a></li>
             </ul>
         </div>
 
@@ -206,22 +207,33 @@
         <div class="w-full lg:w-[24%] flex-shrink-0 mt-2 lg:mt-0">
             <h3 class="font-bold text-[16px] xl:text-[18px] mb-5 text-white">Our Network</h3>
             <ul class="space-y-4 text-[13px] xl:text-[14.5px] text-white">
-                <li><a href="#" class="hover:text-[#FF9C00] transition-colors duration-200 whitespace-nowrap">Vetri Technology Solution (VTS)</a></li>
-                <li><a href="#" class="hover:text-[#FF9C00] transition-colors duration-200 whitespace-nowrap">Vetri IT System (VIS)</a></li>
-                <li><a href="#" class="hover:text-[#FF9C00] transition-colors duration-200 whitespace-nowrap">Vetri Consultancy Services (VCS)</a></li>
+                <li><a href="{% url 'home' %}" class="hover:text-[#FF9C00] transition-colors duration-200 whitespace-nowrap">Vetri Technology Solution (VTS)</a></li>
+                <li>
+                <li>
+                <a href="{{ vis_link }}" target="_blank" rel="noopener noreferrer" class="hover:text-[#FF9C00] transition-colors duration-200 whitespace-nowrap">
+                    Vetri IT System (VIS)
+                </a>
+                </li>
+
+                <li>
+                <a href="{{ vcs_link }}" target="_blank" rel="noopener noreferrer" class="hover:text-[#FF9C00] transition-colors duration-200 whitespace-nowrap">
+                    Vetri Consultancy Services (VCS)
+                </a>
+                </li>
             </ul>
         </div>
 
         <div class="w-full lg:w-[27%] flex-shrink-0 flex flex-col mt-2 lg:mt-0">
             <h3 class="font-bold text-[16px] xl:text-[18px] mb-5 text-white">Get In Touch</h3>
-            <div class="space-y-4 text-[13px] xl:text-[14.5px] text-white mb-8">
-                <p class="whitespace-nowrap">Call: +91- 8438558527</p>
-                <p class="whitespace-nowrap">
-                    Email: 
-                    <a href="mailto:vetritechnologysolution@gmail.com" class="text-white hover:text-[#FF9C00]">
-                        vetritechnologysolution@gmail.com
-                    </a>
-                </p>
+            <div class="flex items-start gap-2 text-[13px] xl:text-[14.5px] text-white mb-8">
+                <span class="font-bold whitespace-nowrap pt-0.5">Call:</span>
+                <div class="flex flex-col">
+                    {% for number_obj in footer_numbers %}
+                        <a href="tel:{{ number_obj.contact_numbers }}" class="mb-1 text-white hover:text-[#FF9C00] transition-colors">
+                            +91-{{ number_obj.contact_numbers }}
+                        </a>
+                    {% endfor %}
+                </div>
             </div>
             
             <h3 class="font-bold text-[16px] xl:text-[18px] mb-4 text-white">Follow Us</h3>
@@ -379,5 +391,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 </body>
 </html>

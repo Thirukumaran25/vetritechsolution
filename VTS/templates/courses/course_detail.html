@@ -1,11 +1,85 @@
 {% extends 'base.html' %}
+{% block title %}{{ course.coursename }} in Tirunelveli | Vetri Technology Solutions{% endblock %}
+
+{% block meta_description %}
+Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented training program. Get hands-on experience, certification, and 100% placement support. Enroll today!
+{% endblock %}
 
 {% block content %}
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "{{ course.coursename|escapejs }}",
+  "description": "{{ course.short_description|escapejs }}",
+  "provider": {
+    "@type": "Organization",
+    "name": "Vetri Technology Solutions",
+    "sameAs": "https://www.vetritechnologysolutions.in" 
+  },
+  "educationalCredentialAwarded": [{
+    "@type": "EducationalOccupationalCredential",
+    "name": "{{ course.certification|escapejs }} Certification",
+    "credentialCategory": "Certificate"
+  }],
+  "offers": [{
+    "@type": "Offer",
+    "category": "Paid",
+    "priceCurrency": "INR",
+    "price": "{{ course.course_fee|floatformat:0 }}",
+    "availability": "https://schema.org/InStock"
+  }],
+  "hasCourseInstance": [{
+    "@type": "CourseInstance",
+    "courseMode": "{% if course.mode == 'Online' %}Online{% else %}Onsite{% endif %}",
+    "courseWorkload": "{{ course.duration|escapejs }}"
+  }]
+}
+</script>
+
+<style>
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        15% { transform: scale(1.15); }
+        30% { transform: scale(1); }
+        45% { transform: scale(1.15); }
+        60% { transform: scale(1); }
+    }
+
+    .animate-heartbeat {
+        animation: heartbeat 2s infinite ease-in-out;
+        display: inline-block;
+    }
+</style>
+<style>
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 1s linear infinite;
+}
+
+@keyframes blink-red {
+    0%, 100% { background-color: rgba(239, 68, 68, 1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+    50% { background-color: rgba(220, 38, 38, 0.8); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+}
+.animate-status-blink {
+    animation: blink-red 1.2s infinite;
+}
+</style>
+
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 font-sans relative">
-    
-    <div class="flex flex-col lg:flex-row gap-12 justify-between">
+    <div class="mb-6">
+        <a href="{% url 'courses' %}" class="inline-flex items-center text-sm font-semibold text-[#6C2CB1] hover:text-[#FF9C00] transition-colors">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Back to All Courses
+        </a>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-4 justify-between">
         
         <div class="w-full lg:w-2/3">
             <h1 class="text-[28px] font-semibold text-[#6621BA] mb-3 leading-tight">
@@ -16,74 +90,81 @@
                 {% if course.subtitle_2 %}<p>{{ course.subtitle_2 }}</p>{% endif %}
                 {% if course.subtitle_3 %}<p>{{ course.subtitle_3 }}</p>{% endif %}
             </div>
+            <div class="mb-8 w-full max-w-[300px] relative">
+        
+                {% if course.emi_available %}
+                <div class="absolute -top-3 -right-2 z-20 flex items-center gap-1.5 bg-white border-2 border-red-500 px-3 py-1 rounded-full shadow-lg animate-status-blink">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    <span class="text-[12px] font-black text-white uppercase tracking-wider">EMI AVAILABLE</span>
+                </div>
+                {% endif %}
 
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8 max-w-3xl">
-
-                <div class="bg-[#EAE0F5] rounded-xl px-4 flex  items-center h-[55px] w-full">
-                    <span class="text-[#FF9C00] w-1/4 font-bold text-xl">₹</span>
+                <div class="relative overflow-hidden bg-white border-[3px] border-[#6C2CB1] rounded-2xl px-5 py-4 flex items-center gap-4 min-h-[80px] shadow-xl hover:scale-105 transition-transform duration-300">
+                    
+                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-[#FF9C00] rounded-xl shadow-inner">
+                        <span class="text-white font-black text-2xl">₹</span>
+                    </div>
+                    
                     <div class="flex flex-col leading-tight">
-                        <span class="text-[13px] text-[#6C2CB1]">Course Fee</span>
-                        <span class="text-[15px] text-[#FF9C00]">
-                            ₹{{ course.course_fee }}
+                        <span class="text-[12px] font-extrabold text-[#6C2CB1] uppercase tracking-widest opacity-80">Course Fee</span>
+                        <span class="text-[28px] text-gray-900 font-black tracking-tight">
+                            ₹ <span class="counter" data-target="{{ course.course_fee }}">0</span>
                         </span>
+                    </div>
+                    
+                    <div class="absolute -bottom-2 -right-2 w-16 h-16 bg-[#6C2CB1]/5 rounded-full"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 w-full max-w-7xl mx-auto">
+                
+                <div class="bg-gradient-to-r from-[#f8faff] to-[#f3e8ff] border border-purple-100 rounded-xl px-3 py-2 flex items-center gap-3 min-h-[60px] shadow-sm">
+                    <svg class="w-5 h-5 text-[#FF9C00] animate-spin-slow flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div class="flex flex-col leading-tight min-w-0">
+                        <span class="text-[11px] font-semibold text-[#6C2CB1] uppercase tracking-wider">Duration</span>
+                        <span class="text-[14px] font-bold text-gray-900 truncate">{{ course.duration }}</span>
                     </div>
                 </div>
 
-                <div class="bg-[#EAE0F5] rounded-xl px-4 flex gap-4 items-center h-[55px] w-full">
-                    <svg class="text-[#FF9C00] w-1/4 font-bold text-xl" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                <div class="bg-gradient-to-r from-[#f8faff] to-[#f3e8ff] border border-purple-100 rounded-xl px-3 py-2 flex items-center gap-3 min-h-[60px] shadow-sm">
+                    <svg class="text-[#FF9C00] w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
                     </svg>
-                    <div class="flex flex-col leading-tight">
-                        <span class="text-[13px] text-[#6C2CB1]">Duration</span>
-                        <span class="text-[15px]">
-                            {{ course.duration }}
-                        </span>
+                    <div class="flex flex-col leading-tight min-w-0">
+                        <span class="text-[11px] font-semibold text-[#6C2CB1] uppercase tracking-wider">Certification</span>
+                        <span class="text-[14px] font-bold text-gray-900 truncate">{{ course.certification }}</span>
                     </div>
                 </div>
 
-                <div class="bg-[#EAE0F5] rounded-xl px-4 flex  items-center h-[55px] w-full">
-                    <svg class="text-[#FF9C00] w-1/4 font-bold text-xl" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 12l2 2 4-4"></path>
+                <div class="bg-gradient-to-r from-[#f8faff] to-[#f3e8ff] border border-purple-100 rounded-xl px-3 py-2 flex items-center gap-3 min-h-[60px] shadow-sm">
+                    <svg class="text-[#FF9C00] w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="8" stroke-width="3"></circle>
+                        <circle cx="12" cy="12" r="4" stroke-width="2.5"></circle>
                     </svg>
-                    <div class="flex flex-col leading-tight">
-                        <span class="text-[13px] text-[#6C2CB1]">Certification</span>
-                        <span class="text-[15px] ">
-                            {{ course.certification }}
-                        </span>
+                    <div class="flex flex-col leading-tight min-w-0">
+                        <span class="text-[11px] font-semibold text-[#6C2CB1] uppercase tracking-wider">Mode</span>
+                        <span class="text-[14px] font-bold text-gray-900 truncate">{{ course.mode }}</span>
                     </div>
                 </div>
 
-                <div class="bg-[#EAE0F5] rounded-xl px-2 flex  items-center h-[55px] w-full">
-                    <svg class="text-[#FF9C00] w-1/4 font-bold text-xl" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                <div class="bg-gradient-to-r from-[#f8faff] to-[#f3e8ff] border border-purple-100 rounded-xl px-3 py-2 flex items-center gap-3 min-h-[60px] shadow-sm">
+                    <svg class="text-[#FF9C00] w-5 h-5 flex-shrink-0 animate-heartbeat" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
-                    <div class="flex flex-col leading-tight">
-                        <span class="text-[13px] text-[#6C2CB1]">Mode</span>
-                        <span class="text-[14px] ">
-                            {{ course.mode }}
-                        </span>
-                    </div>
-                </div>
-                <div class="bg-[#EAE0F5] rounded-xl px-4 flex items-center h-[55px] w-full">
-                    <svg class="text-[#FF9C00] w-1/4 font-bold text-xl" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                    </svg>
-                    <div class="flex flex-col leading-tight">
-                        <span class="text-[13px] text-[#6C2CB1]">Job Offer</span>
-                        <span class="text-[15px] {% if course.job_offer == 'Yes' %}text-[#22c55e] font-bold{% endif %}">
-                            {{ course.job_offer }}
-                        </span>
+                    <div class="flex flex-col leading-tight min-w-0">
+                        <span class="text-[11px] font-semibold text-[#6C2CB1] uppercase tracking-wider">Job Offer</span>
+                        <span class="text-[14px] font-bold {% if course.job_offer == 'Yes' %}text-[#22c55e]{% else %}text-gray-900{% endif %} truncate">{{ course.job_offer }}</span>
                     </div>
                 </div>
             </div>
 
-            <div class="flex gap-4 md:gap-20">
+            <div class="flex gap-4 md:gap-10">
                 {% if course.is_enrollable_online %}
-                <button onclick="openEnrollModal()" class="bg-[#FF9C00] text-white font-extrabold py-1.5 px-8 rounded-md hover:bg-[#e68a00] shadow-sm transition-colors">
+                <button onclick="openEnrollModal('{{ course.id }}', '{{ course.coursename|escapejs }}')" class="bg-[#FF9C00] text-white font-extrabold py-1.5 px-8 rounded-md hover:bg-[#e68a00] shadow-sm transition-colors">
                     Enroll Now
                 </button>
                 {% else %}
@@ -93,27 +174,24 @@
                 {% endif %}
 
                 {% if course.brochure %}
-                    <a href="{{ course.brochure.url }}" download="{{ course.coursename|slugify }}_Brochure.pdf" class="border border-[#FF9C00] text-center text-gray-800 py-1.5 px-2 rounded hover:bg-gray-50 transition-colors">
+                    <button type="button" 
+                            onclick="openBrochureModal('{{ course.coursename|escapejs }}', '{{ course.brochure.url }}', '{{ course.coursename|slugify }}_Brochure.pdf')" 
+                            class="border border-[#FF9C00] text-center text-gray-800 py-1.5 px-2 rounded hover:bg-gray-50 transition-colors">
                         Download Brochure
-                    </a>
+                    </button>
                 {% endif %}
             </div>
         </div>
 
-        <div class="w-full lg:w-[250px] border border-black rounded-xl md:h-[280px] md:py-8 flex-shrink-0">
-            <div class="justify-center items-center overflow-hidden bg-white shadow-sm">
+        <div class="w-full lg:w-[280px] rounded-xl md:h-[280px] md:py-8 flex-shrink-0">
+            <div class="justify-center items-center overflow-hidden border border-blue-100 rounded-md shadow-sm">
                 <div class="relative w-full h-[190px] bg-blue-100 flex items-center justify-center">
                     {% if course.short_video %}
                         <video class="w-full h-full rounded-md object-cover" controls>
                             <source src="{{ course.short_video.url }}" type="video/mp4">
                         </video>
                     {% elif course.thumbnail %}
-                        <img src="{{ course.thumbnail.url }}" class="w-full h-full object-cover" alt="Video Placeholder">
-                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div class="w-12 h-12 bg-black rounded flex items-center justify-center">
-                                <div class="w-0 h-0 border-t-[8px] border-t-transparent border-l-[14px] border-l-white border-b-[8px] border-b-transparent ml-1"></div>
-                            </div>
-                        </div>
+                        <img src="{{ course.thumbnail.url }}" class="w-full h-full object-fit" alt="Video Placeholder">
                     {% endif %}
                 </div>
             </div>
@@ -122,61 +200,97 @@
 
     <hr class="my-10 border-gray-800">
 
-    <div class="mb-10">
-        <h2 class="text-[17px] font-semibold text-black ">Course Overview</h2>
-        <p class="text-[16px]  whitespace-pre-line">
-            {{ course.course_overview }}
-        </p>
-    </div>
-
+{% with tools=course.get_tools_list %}
+    {% if tools %}
     <div class="mb-10">
         <h2 class="text-[17px] font-semibold text-black mb-6">Tools & Technologies Covered</h2>
-        <div class="flex flex-wrap gap-5">
-            {% for tool in course.get_tools_list %}
+        <div class="flex flex-wrap gap-5 ">
+            {% for tool in tools %}
             <div class="bg-[#FDE2B5] rounded-xl flex flex-col items-center justify-center w-[100px] h-[100px] shadow-sm transform hover:-translate-y-1 transition-transform p-2">
+                
                 <img src="https://cdn.simpleicons.org/{{ tool|lower|cut:' ' }}" 
                      alt="{{ tool }} logo" 
                      class="w-10 h-10 mb-2 object-contain"
                      onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden'); this.nextElementSibling.classList.add('flex');">
+                
                 <div class="hidden w-10 h-10 mb-2 bg-[#22c55e] text-white rounded-full items-center justify-center font-bold text-xl uppercase">
                     {{ tool|slice:":1" }}
                 </div>
+                
                 <span class="text-[13px] font-extrabold text-black text-center px-1 leading-tight">{{ tool }}</span>
             </div>
             {% endfor %}
         </div>
     </div>
-    <div class="flex flex-col md:flex-row md:space-x-10">
-        <div class="mb-10 md:mb-0 md:flex-1">
-            <h2 class="text-[17px] font-semibold text-black mb-5">What you will Learn</h2>
-            <ul class="space-y-3">
-                {% for point in course.get_learn_points %}
-                <li class="flex items-start">
-                    <span class="w-2 h-2 rounded-full bg-[#22c55e] mt-1.5 mr-3 flex-shrink-0"></span>
-                    <span class="text-[16px] tracking-tight">{{ point }}</span>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+    {% endif %}
+{% endwith %}
 
-        <!-- Course Benefits -->
-        {% if course.get_benefits_list %}
-        <div class="mb-10 md:mb-0 md:flex-1">
-            <h2 class="text-[17px] font-semibold text-black mb-5">Course Benefits</h2>
-            <ul class="space-y-3">
-                {% for benefit in course.get_benefits_list %}
-                <li class="flex items-start">
-                    <span class="w-2 h-2 rounded-full bg-[#22c55e] mt-1.5 mr-3 flex-shrink-0"></span>
-                    <span class="text-[16px] tracking-tight">{{ benefit }}</span>
-                </li>
-                {% endfor %}
-            </ul>
+<div class="mb-10">
+        <h2 class="text-[17px] font-semibold text-black ">Course Overview</h2>
+        <p class="text-[16px]  whitespace-pre-line">
+            {{ course.course_overview }}
+        </p>
+</div>
+
+
+{% if course.feature_cards.exists %}
+<section class="mx-auto p-4 ">
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-16 md:gap-6 mt-12 items-stretch">        
+        {% for card in course.feature_cards.all %}
+        <div class="reveal-wrapper opacity-0 translate-y-12 h-full">
+            <div class="bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] flex flex-col relative border border-gray-100 h-full transform transition-all hover:shadow-xl hover:-translate-y-2 duration-300 group">               
+                {% if card.top_icon %}
+                <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 flex items-center justify-center drop-shadow-xl z-20 transform transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
+                    <img src="{{ card.top_icon.url }}" alt="Icon" class="w-full h-full object-contain">
+                </div>
+                {% endif %}
+                
+                <div class="bg-[#8B5CF6] text-white text-center px-4 pt-10 pb-4 rounded-t-2xl z-10 min-h-[100px] flex items-center justify-center">
+                    <h3 class="font-bold text-[16px] leading-snug">{{ card.title }}</h3>
+                </div>
+                
+                <div class="p-2 flex-1 bg-white rounded-b-2xl flex flex-col z-0">
+                    <ul class="space-y-5">
+                        
+                        {% for item in card.items.all %}
+                        <li class="flex items-start">
+                            {% if item.list_icon %}
+                                <img src="{{ item.list_icon.url }}" alt="Icon" class="w-[18px] h-[18px] object-contain mr-3 mt-0.5 flex-shrink-0 transition-transform duration-500 group-hover:rotate-12">
+                            {% else %}
+                                <span class="w-2 h-2 rounded-full bg-green-500 mr-3 mt-1.5 flex-shrink-0"></span>
+                            {% endif %}
+                            
+                            <span class="text-gray-800 text-[14px] font-semibold leading-snug">{{ item.text }}</span>
+                        </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>               
+            </div>
         </div>
-        {% endif %}
+        {% endfor %}
     </div>
+</section>
+{% endif %}
 
-    {% if course.is_enrollable_online %}
-    <div id="enrollModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 font-sans transition-opacity">
+
+{% if course.faqs.exists %}
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-2xl font-semibold text-center text-black mb-10">Frequently Asked Questions</h2>
+    
+    <div class="space-y-4">
+        {% for faq in course.faqs.all %}
+        <div class="bg-[#F3E8FF] rounded-xl p-6 shadow-sm border border-[#E9D5FF]">
+            <h4 class="font-bold text-black text-[17px] mb-3">{{ faq.question }}</h4>
+            <p class="text-gray-700 text-[15px] leading-relaxed">{{ faq.answer }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+    <!-- Enrollment Modal -->
+    <div id="enrollModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 font-sans transition-opacity">
         <div class="bg-white w-full max-w-[1000px] rounded-3xl shadow-2xl relative flex flex-col max-h-[95vh] overflow-hidden">
             
             <button onclick="closeEnrollModal()" class="absolute top-4 right-5 text-gray-500 hover:text-red-500 transition-colors z-50">
@@ -197,17 +311,13 @@
                             <svg id="step2-check" class="w-3 h-3 sm:w-5 sm:h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
                     </div>
-                    <div id="step3-indicator" class="flex-1 text-center relative z-20 w-full sm:w-auto">
-                        <div class="bg-gray-200 text-gray-600 font-bold py-1 px-2 sm:py-2.5 sm:px-6 rounded-full inline-block transition-all text-xs sm:text-base">
-                            Payment
-                        </div>
+                    <div class="absolute top-1/2 left-[25%] right-[25%] h-0.5 bg-gray-200 -z-10 -translate-y-1/2 hidden sm:block overflow-hidden">
+                        <div id="progress-line" class="h-full bg-[#22c55e] transition-all duration-500 w-0"></div>
                     </div>
-                    <div class="absolute top-1/2 left-[15%] right-[15%] h-0.5 bg-gray-200 -z-10 -translate-y-1/2 hidden sm:block"></div>
-                    <div id="progress-line" class="absolute top-1/2 left-[15%] h-0.5 bg-green-500 -z-10 -translate-y-1/2 transition-all duration-500 w-0 hidden sm:block"></div>
                 </div>
             </div>
 
-            <div class="flex-1 overflow-y-auto px-6 py-2 md:px-10">
+            <div class="flex-1 overflow-y-auto px-6 py-2 md:px-10 min-h-[300px]">
                 
                 <form id="enrollForm" class="block">
                     {% csrf_token %}
@@ -293,439 +403,462 @@
                                 <span>First Name</span>
                                 <span class="font-normal text-gray-900 break-all">: <span id="conf_first_name"></span></span>
                             </div>
-                            
                             <div class="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr]">
                                 <span>Address</span>
                                 <span class="font-normal text-gray-900 break-words">: <span id="conf_address"></span></span>
                             </div>
-                            
                             <div class="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr]">
                                 <span>Last Name</span>
                                 <span class="font-normal text-gray-900 break-all">: <span id="conf_last_name"></span></span>
                             </div>
-                            
                             <div class="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr]">
                                 <span>City</span>
                                 <span class="font-normal text-gray-900 break-words">: <span id="conf_city"></span></span>
                             </div>
-                            
                             <div class="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr]">
                                 <span>Phone No</span>
                                 <span class="font-normal text-gray-900 break-all">: <span id="conf_phone"></span></span>
                             </div>
-                            
                             <div class="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr]">
                                 <span>State</span>
                                 <span class="font-normal text-gray-900 break-words">: <span id="conf_state"></span></span>
                             </div>
-                            
                             <div class="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr]">
                                 <span>Email Id</span>
                                 <span class="font-normal text-gray-900 break-all">: <span id="conf_email"></span></span>
                             </div>
-                            
                             <div class="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr]">
                                 <span>Pincode</span>
                                 <span class="font-normal text-gray-900 break-all">: <span id="conf_pincode"></span></span>
                             </div>
-                            
                             <div class="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr]">
                                 <span>Gender</span>
                                 <span class="font-normal text-gray-900 break-all">: <span id="conf_gender"></span></span>
                             </div>
-                            
                             <div class="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr]">
                                 <span>Course Name</span>
                                 <span class="font-normal text-gray-900 break-words">: <span id="conf_course">{{ course.coursename }}</span></span>
                             </div>
-                            
                             <div class="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr]">
                                 <span>Date of Birth</span>
                                 <span class="font-normal text-gray-900 break-all">: <span id="conf_dob"></span></span>
                             </div>
-                            
                             <div class="grid grid-cols-[110px_1fr] sm:grid-cols-[140px_1fr]">
                                 <span>Mode</span>
                                 <span class="font-normal text-gray-900 break-all">: <span id="conf_mode"></span></span>
                             </div>
-
                         </div>
                     </div>
 
-                    <div class="mt-6 sm:mt-10 flex justify-center gap-4 sm:gap-6">
+                    <div class="mt-6 sm:mt-10 flex justify-center gap-4 sm:gap-6 pb-6">
                         <button type="button" onclick="goToStep(1)" class="bg-white border-2 border-[#FF9C00] text-gray-800 font-bold py-2 px-6 sm:py-2.5 sm:px-8 rounded-md hover:bg-gray-50 transition-colors text-sm sm:text-base">Back to Edit</button>
                         <button type="button" id="btn-confirm-final" onclick="submitStep2()" class="bg-[#FF9C00] hover:bg-[#e68a00] text-white font-bold py-2 px-8 sm:py-2.5 sm:px-10 rounded-md shadow-md transition-colors flex items-center justify-center text-sm sm:text-base">
-                            Confirm
+                            Submit Application
                         </button>
                     </div>
                 </div>
-
-                <div id="step3Content" class="hidden">
-                    <h3 class="text-xl font-bold text-center mb-8">Choose Your Payment Option</h3>
-                    
-                    <div class="flex flex-col md:flex-row gap-12 max-w-4xl mx-auto">
-                        <div class="w-full md:w-1/3">
-                            <div class="border-b border-gray-200 pb-4 mb-4 flex justify-between">
-                                <span class="font-semibold text-gray-800">Course Amount</span>
-                                <span class="font-bold">₹<span id="bill_base">0</span></span>
-                            </div>
-                            <div class="border-b border-gray-200 pb-4 mb-4 flex justify-between">
-                                <span class="font-semibold text-gray-800">GST (18%)</span>
-                                <span class="font-bold">₹<span id="bill_gst">0</span></span>
-                            </div>
-                            <div class="flex justify-between text-lg">
-                                <span class="font-extrabold text-black">Total</span>
-                                <span class="font-extrabold text-black">₹<span id="bill_total">0</span></span>
-                            </div>
-                        </div>
-
-                        <div class="w-full md:w-2/3 space-y-4">
-                            <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-[#6C2CB1] transition-colors">
-                                <input type="radio" name="payment_method" class="w-5 h-5 text-purple-600 focus:ring-purple-500 mr-4" checked>
-                                <span class="font-bold text-gray-800">UPI / GPay / PhonePe</span>
-                            </label>
-                            <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-[#6C2CB1] transition-colors">
-                                <input type="radio" name="payment_method" class="w-5 h-5 text-purple-600 focus:ring-purple-500 mr-4">
-                                <span class="font-bold text-gray-800">Net Banking</span>
-                            </label>
-                            <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-[#6C2CB1] transition-colors">
-                                <input type="radio" name="payment_method" class="w-5 h-5 text-purple-600 focus:ring-purple-500 mr-4">
-                                <span class="font-bold text-gray-800">Debit / Credit Card</span>
-                            </label>
-                            
-                            <div class="mt-8 text-right">
-                                <button type="button" onclick="openRazorpay()" id="btn-pay-now" class="bg-[#FF9C00] hover:bg-[#e68a00] text-white font-bold py-3 px-12 rounded-md shadow-md transition-colors">Pay Now</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
-    </div>
-
-
-    <div id="successModal" class="fixed inset-0 z-[110] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 font-sans transition-opacity">
-    <div class="bg-white w-full max-w-[500px] rounded-[24px] shadow-2xl relative flex flex-col items-center py-6 px-5 sm:py-8 sm:px-10 max-h-[90vh] overflow-y-auto animate-fade-in-up">
-        
-        <button onclick="closeSuccessModal()" class="absolute top-4 right-4 text-black hover:text-red-500 transition-colors z-50 focus:outline-none">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 9l-6 6m0-6l6 6"></path>
-            </svg>
-        </button>
-
-        <div class="w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] bg-[#5DA25E] rounded-full flex items-center justify-center mb-3 sm:mb-4 shadow-sm mt-2 flex-shrink-0">
-            <svg class="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path>
-            </svg>
-        </div>
-        
-        <h2 class="text-[20px] sm:text-[24px] font-bold text-black mb-4 sm:mb-6 text-center tracking-tight">Payment Completed</h2>
-
-        <div class="bg-[#E4F0E2] rounded-[16px] p-4 sm:p-6 w-full mb-6 sm:mb-8 shadow-sm">
-            <h3 class="text-[16px] sm:text-[18px] font-bold text-black mb-4">Transaction Details</h3>
-            
-            <div class="flex flex-col space-y-3 text-[13px] sm:text-[15px] font-medium text-black">
-                <div class="grid grid-cols-[100px_1fr] sm:grid-cols-[140px_1fr] items-start">
-                    <span class="text-gray-600">Transaction Id</span>
-                    <span class="break-all font-semibold">: <span id="succ_txn"></span></span>
-                </div>
-                <div class="grid grid-cols-[100px_1fr] sm:grid-cols-[140px_1fr] items-start">
-                    <span class="text-gray-600">Date</span>
-                    <span class="font-semibold">: <span id="succ_date"></span></span>
-                </div>
-                <div class="grid grid-cols-[100px_1fr] sm:grid-cols-[140px_1fr] items-start">
-                    <span class="text-gray-600">Method</span>
-                    <span class="font-semibold">: <span id="succ_method"></span></span>
-                </div>
-                <div class="grid grid-cols-[100px_1fr] sm:grid-cols-[140px_1fr] items-start">
-                    <span class="text-gray-600">Amount Paid</span>
-                    <span class="font-bold">: ₹ <span id="succ_amount"></span></span>
-                </div>
-                <div class="grid grid-cols-[100px_1fr] sm:grid-cols-[140px_1fr] items-start">
-                    <span class="text-gray-600">Email Id</span>
-                    <span class="break-all font-semibold">: <span id="succ_email"></span></span>
-                </div>
-            </div>
-        </div>
-
-        <button id="btn-download-invoice" class="bg-[#FFA000] hover:bg-[#e68f00] text-white font-bold py-3 px-8 sm:px-12 rounded-[12px] shadow-md transition-transform transform hover:-translate-y-0.5 text-[15px] sm:text-[16px] flex-shrink-0 mb-2">
-            Download Invoice
-        </button>
     </div>
 </div>
 
+
+<div id="brochureModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity duration-300 opacity-0">
+    <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 w-full max-w-md mx-4 transform scale-95 transition-transform duration-300 relative" id="brochureModalContent">
+        
+        <div class="flex justify-between items-center mb-2">
+            <h3 class="text-2xl font-bold text-gray-900">Get the Brochure</h3>
+            <button onclick="closeBrochureModal()" class="text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full p-2 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        
+        <p class="text-[14px] text-gray-600 mb-6">Enter your details to download the <strong id="modalCourseNameDisplay" class="text-[#6C2CB1]"></strong> syllabus.</p>
+        
+        <form id="brochureForm" onsubmit="handleBrochureSubmit(event)">
+            {% csrf_token %} <input type="hidden" id="modalCourseName">
+            <input type="hidden" id="modalBrochureUrl">
+            <input type="hidden" id="modalBrochureFilename">
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Full Name<span class="text-red-500">*</span></label>
+                    <input type="text" id="brochureName" placeholder="Enter your Name" pattern="[A-Za-z\s\.\-']+" required title="Only letters and spaces allowed" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#6C2CB1] focus:border-transparent transition-shadow">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Phone Number <span class="text-red-500">*</span></label>
+                    <input type="tel" id="brochurePhone" placeholder="Enter mobile number" required pattern="[0-9]{7,15}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#6C2CB1] focus:border-transparent transition-shadow">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Email Address <span class="text-red-500">*</span></label>
+                    <input type="email" id="brochureEmail" placeholder="e.g. name@example.com" required class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#6C2CB1] focus:border-transparent transition-shadow">
+                </div>
+            </div>
+            
+            <button type="submit" id="brochureSubmitBtn" class="w-full bg-[#FF9C00] hover:bg-[#e68a00] text-white font-bold py-3 px-4 rounded-lg mt-8 transition-colors flex justify-center items-center shadow-lg">
+                <span>Download PDF Now</span>
+            </button>
+        </form>
+    </div>
 </div>
 
 <script>
-    let razorpayOptions = null;
-    let rzp1 = null;
-
-    function openEnrollModal() {
-        document.getElementById('enrollModal').classList.remove('hidden');
-        goToStep(1);
-    }
-
-    function closeEnrollModal() {
-        document.getElementById('enrollModal').classList.add('hidden');
-        // Reset the form when closed so data isn't retained
-        document.getElementById('enrollForm').reset();
-    }
-
-    function closeSuccessModal() {
-        document.getElementById('successModal').classList.add('hidden');
-    }
-
-    function goToStep(step) {
-        document.getElementById('enrollForm').classList.add('hidden');
-        document.getElementById('step2Content').classList.add('hidden');
-        document.getElementById('step3Content').classList.add('hidden');
-        
-        const activeClass = ['bg-[#FF9C00]', 'text-white'];
-        const inactiveClass = ['bg-gray-200', 'text-gray-600'];
-        const completedClass = ['bg-[#22c55e]', 'text-white'];
-
-        if(step === 1) {
-            document.getElementById('enrollForm').classList.remove('hidden');
-            document.getElementById('step1-indicator').querySelector('div').className = `font-bold py-2.5 px-6 rounded-full inline-flex items-center gap-2 shadow-md transition-all ${activeClass.join(' ')}`;
-            document.getElementById('step2-indicator').querySelector('div').className = `font-bold py-2.5 px-6 rounded-full inline-flex items-center gap-2 transition-all ${inactiveClass.join(' ')}`;
-            document.getElementById('step3-indicator').querySelector('div').className = `font-bold py-2.5 px-6 rounded-full inline-flex items-center gap-2 transition-all ${inactiveClass.join(' ')}`;
-            document.getElementById('step1-check').classList.add('hidden');
-            document.getElementById('step2-check').classList.add('hidden');
-            document.getElementById('progress-line').style.width = '0%';
-        } 
-        else if (step === 2) {
-            document.getElementById('step2Content').classList.remove('hidden');
+    document.addEventListener("DOMContentLoaded", function() {
+        const observer = new IntersectionObserver((entries) => {
+            let delay = 0; 
             
-            document.getElementById('conf_first_name').innerText = document.getElementById('first_name').value;
-            document.getElementById('conf_last_name').innerText = document.getElementById('last_name').value;
-            document.getElementById('conf_phone').innerText = document.getElementById('phone').value;
-            document.getElementById('conf_email').innerText = document.getElementById('email').value;
-            document.getElementById('conf_gender').innerText = document.getElementById('gender').value;
-            document.getElementById('conf_dob').innerText = document.getElementById('dob').value;
-            document.getElementById('conf_address').innerText = document.getElementById('address').value;
-            document.getElementById('conf_city').innerText = document.getElementById('city').value;
-            document.getElementById('conf_state').innerText = document.getElementById('state').value;
-            document.getElementById('conf_pincode').innerText = document.getElementById('pincode').value;
-            document.getElementById('conf_mode').innerText = document.getElementById('mode').value;
-
-            document.getElementById('step1-indicator').querySelector('div').className = `font-bold py-2.5 px-6 rounded-full inline-flex items-center gap-2 transition-all ${completedClass.join(' ')}`;
-            document.getElementById('step2-indicator').querySelector('div').className = `font-bold py-2.5 px-6 rounded-full inline-flex items-center gap-2 shadow-md transition-all ${activeClass.join(' ')}`;
-            document.getElementById('step3-indicator').querySelector('div').className = `font-bold py-2.5 px-6 rounded-full inline-flex items-center gap-2 transition-all ${inactiveClass.join(' ')}`;
-            document.getElementById('step1-check').classList.remove('hidden');
-            document.getElementById('step2-check').classList.add('hidden');
-            document.getElementById('progress-line').style.width = '35%';
-        }
-        else if (step === 3) {
-            document.getElementById('step3Content').classList.remove('hidden');
-            document.getElementById('step1-indicator').querySelector('div').className = `font-bold py-2.5 px-6 rounded-full inline-flex items-center gap-2 transition-all ${completedClass.join(' ')}`;
-            document.getElementById('step2-indicator').querySelector('div').className = `font-bold py-2.5 px-6 rounded-full inline-flex items-center gap-2 transition-all ${completedClass.join(' ')}`;
-            document.getElementById('step3-indicator').querySelector('div').className = `font-bold py-2.5 px-6 rounded-full inline-flex items-center gap-2 shadow-md transition-all ${activeClass.join(' ')}`;
-            document.getElementById('step1-check').classList.remove('hidden');
-            document.getElementById('step2-check').classList.remove('hidden');
-            document.getElementById('progress-line').style.width = '75%';
-        }
-    }
-
-    function submitStep1() {
-        const form = document.getElementById('enrollForm');
-        
-        if (!form.reportValidity()) {
-            return;
-        }
-
-        const firstName = document.getElementById('first_name').value.trim();
-        const lastName = document.getElementById('last_name').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const pincode = document.getElementById('pincode').value.trim();
-
-        // 1. Strict Name Validation (Letters & spaces only)
-        const nameRegex = /^[A-Za-z\s\.\-']+$/;
-        if (!nameRegex.test(firstName)) {
-            alert("Please enter a valid First Name (letters only).");
-            return;
-        }
-        if (!nameRegex.test(lastName)) {
-            alert("Please enter a valid Last Name (letters only).");
-            return;
-        }
-
-        // 2. Strict Phone Validation (Exactly 10 numbers)
-        const phoneRegex = /^\d{10}$/;
-        if (!phoneRegex.test(phone)) {
-            alert("Please enter exactly 10 digits for your Phone Number.");
-            return;
-        }
-
-        // 3. Strict Pincode Validation (Exactly 6 numbers)
-        const pinRegex = /^\d{6}$/;
-        if (!pinRegex.test(pincode)) {
-            alert("Please enter exactly 6 digits for your Pincode.");
-            return;
-        }
-
-        // 4. Strict Email Validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert("Please enter a valid Email Address.");
-            return;
-        }
-
-        goToStep(2);
-    }
-
-    function submitStep2() {
-        const btn = document.getElementById('btn-confirm-final');
-        btn.innerHTML = 'Processing...';
-        btn.disabled = true;
-
-        const payload = {
-            course_id: document.getElementById('course_id').value,
-            first_name: document.getElementById('first_name').value,
-            last_name: document.getElementById('last_name').value,
-            phone: document.getElementById('phone').value,
-            email: document.getElementById('email').value,
-            gender: document.getElementById('gender').value,
-            dob: document.getElementById('dob').value,
-            address: document.getElementById('address').value,
-            city: document.getElementById('city').value,
-            state: document.getElementById('state').value,
-            pincode: document.getElementById('pincode').value,
-            mode: document.getElementById('mode').value,
-            message: document.getElementById('message').value
-        };
-
-        // CSRF token fallback logic to fix authentication errors
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.remove('opacity-0', 'translate-y-12');
+                        entry.target.classList.add('opacity-100', 'translate-y-0', 'transition-all', 'duration-700', 'ease-out');
+                    }, delay);
+                    
+                    delay += 150; 
+                    observer.unobserve(entry.target); 
                 }
-            }
-            return cookieValue;
-        }
-        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value || getCookie('csrftoken');
+            });
+        }, { 
+            threshold: 0.1, 
+            rootMargin: "0px 0px -50px 0px" 
+        });
 
-        fetch('{% url "create_enrollment" %}', {
+        document.querySelectorAll('.reveal-wrapper').forEach((el) => {
+            observer.observe(el);
+        });
+    });
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const counters = document.querySelectorAll('.counter');
+
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target')) || 0;
+        let count = 0;
+
+        const speed = 200;
+        const updateCounter = () => {
+            const increment = target / speed;
+
+            if (count < target) {
+                count += increment;
+                counter.innerText = Math.ceil(count).toLocaleString('en-IN');
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.innerText = target.toLocaleString('en-IN');
+            }
+        };
+        updateCounter();
+    });
+});
+
+function openEnrollModal(courseId, courseName) {
+    document.getElementById('course_id').value = courseId;
+    let courseNameInput = document.getElementById('course_name');
+    if(courseNameInput) {
+        courseNameInput.value = courseName;
+    }
+    
+    const modal = document.getElementById('enrollModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex'); // crucial for centering in Tailwind
+    
+    goToStep(1);
+}
+
+function closeEnrollModal() {
+    const modal = document.getElementById('enrollModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    
+    const courseId = document.getElementById('course_id').value;
+    const courseNameEl = document.getElementById('course_name');
+    const courseName = courseNameEl ? courseNameEl.value : '';
+    
+    document.getElementById('enrollForm').reset();
+    document.getElementById('course_id').value = courseId;
+    if (courseNameEl) courseNameEl.value = courseName;
+}
+
+function goToStep(step) {
+    const form = document.getElementById('enrollForm');
+    const step2Content = document.getElementById('step2Content');
+    
+    // Hide both elements strictly
+    form.classList.add('hidden');
+    form.classList.remove('block');
+    step2Content.classList.add('hidden');
+    step2Content.classList.remove('block');
+    
+    const activeClass = ['bg-[#FF9C00]', 'text-white'];
+    const inactiveClass = ['bg-gray-200', 'text-gray-600'];
+    const completedClass = ['bg-[#22c55e]', 'text-white'];
+
+    if(step === 1) {
+        form.classList.remove('hidden');
+        form.classList.add('block'); // Show Form
+        
+        document.getElementById('step1-indicator').querySelector('div').className = `font-bold py-2.5 px-6 rounded-full inline-flex items-center gap-2 shadow-md transition-all ${activeClass.join(' ')}`;
+        document.getElementById('step2-indicator').querySelector('div').className = `font-bold py-2.5 px-6 rounded-full inline-flex items-center gap-2 transition-all ${inactiveClass.join(' ')}`;
+        
+        document.getElementById('step1-check').classList.add('hidden');
+        document.getElementById('step2-check').classList.add('hidden');
+        document.getElementById('progress-line').style.width = '0%';
+    } 
+    else if (step === 2) {
+        step2Content.classList.remove('hidden');
+        step2Content.classList.add('block'); // Show Confirmation Details
+        
+        document.getElementById('conf_first_name').innerText = document.getElementById('first_name').value;
+        document.getElementById('conf_last_name').innerText = document.getElementById('last_name').value;
+        document.getElementById('conf_phone').innerText = document.getElementById('phone').value;
+        document.getElementById('conf_email').innerText = document.getElementById('email').value;
+        document.getElementById('conf_gender').innerText = document.getElementById('gender').value;
+        document.getElementById('conf_dob').innerText = document.getElementById('dob').value;
+        document.getElementById('conf_address').innerText = document.getElementById('address').value;
+        document.getElementById('conf_city').innerText = document.getElementById('city').value;
+        document.getElementById('conf_state').innerText = document.getElementById('state').value;
+        document.getElementById('conf_pincode').innerText = document.getElementById('pincode').value;
+        document.getElementById('conf_mode').innerText = document.getElementById('mode').value;
+        
+        let cName = document.getElementById('course_name') ? document.getElementById('course_name').value : '';
+        document.getElementById('conf_course').innerText = cName;
+
+        document.getElementById('step1-indicator').querySelector('div').className = `font-bold py-2.5 px-6 rounded-full inline-flex items-center gap-2 transition-all ${completedClass.join(' ')}`;
+        document.getElementById('step2-indicator').querySelector('div').className = `font-bold py-2.5 px-6 rounded-full inline-flex items-center gap-2 shadow-md transition-all ${activeClass.join(' ')}`;
+        
+        document.getElementById('step1-check').classList.remove('hidden');
+        document.getElementById('step2-check').classList.add('hidden');
+        document.getElementById('progress-line').style.width = '100%';
+    }
+}
+
+function submitStep1() {
+    const form = document.getElementById('enrollForm');
+    
+    if (!form.reportValidity()) {
+        return;
+    }
+
+    const firstName = document.getElementById('first_name').value.trim();
+    const lastName = document.getElementById('last_name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const pincode = document.getElementById('pincode').value.trim();
+
+    const nameRegex = /^[A-Za-z\s\.\-']+$/;
+    if (!nameRegex.test(firstName)) {
+        alert("Please enter a valid First Name (letters only)."); return;
+    }
+    if (!nameRegex.test(lastName)) {
+        alert("Please enter a valid Last Name (letters only)."); return;
+    }
+
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phone)) {
+        alert("Please enter exactly 10 digits for your Phone Number."); return;
+    }
+
+    const pinRegex = /^\d{6}$/;
+    if (!pinRegex.test(pincode)) {
+        alert("Please enter exactly 6 digits for your Pincode."); return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert("Please enter a valid Email Address."); return;
+    }
+
+    goToStep(2);
+}
+
+function submitStep2() {
+    const btn = document.getElementById('btn-confirm-final');
+    const originalText = btn.innerHTML; // Save original text
+    
+    // Add Tailwind SVG Spinner and change text
+    btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Processing...`;
+    btn.disabled = true;
+
+    const payload = {
+        course_id: document.getElementById('course_id').value,
+        first_name: document.getElementById('first_name').value,
+        last_name: document.getElementById('last_name').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        gender: document.getElementById('gender').value,
+        dob: document.getElementById('dob').value,
+        address: document.getElementById('address').value,
+        city: document.getElementById('city').value,
+        state: document.getElementById('state').value,
+        pincode: document.getElementById('pincode').value,
+        mode: document.getElementById('mode').value,
+        message: document.getElementById('message').value
+    };
+
+    fetch('{% url "create_enrollment" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value 
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status === 'success') {
+            // Change button to success state visually
+            btn.innerHTML = '✅ Application Sent!';
+            btn.classList.remove('bg-[#FF9C00]', 'hover:bg-[#e68a00]');
+            btn.classList.add('bg-green-500');
+
+            // Wait a moment so the user sees the "Sent!" button, then alert and redirect
+            setTimeout(() => {
+                alert("Your application for " + document.getElementById('conf_course').innerText + " has been submitted! A confirmation email has been sent to you.");
+                window.location.href = "/"; 
+            }, 800);
+            
+        } else {
+            // Show the specific error from the backend (e.g. Email failed)
+            alert("Submission failed: " + data.message);
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    })
+    .catch(err => {
+        alert("Network error. Please check your connection and try again.");
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    });
+}
+
+
+
+// Open Modal & Inject Course Data
+function openBrochureModal(courseName, brochureUrl, filename) {
+    document.getElementById('modalCourseName').value = courseName;
+    document.getElementById('modalCourseNameDisplay').textContent = courseName;
+    document.getElementById('modalBrochureUrl').value = brochureUrl;
+    document.getElementById('modalBrochureFilename').value = filename;
+    
+    const modal = document.getElementById('brochureModal');
+    const content = document.getElementById('brochureModalContent');
+    
+    modal.classList.remove('hidden');
+    setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        content.classList.remove('scale-95');
+    }, 10);
+}
+
+// Close Modal & Reset Form
+function closeBrochureModal() {
+    const modal = document.getElementById('brochureModal');
+    const content = document.getElementById('brochureModalContent');
+    
+    modal.classList.add('opacity-0');
+    content.classList.add('scale-95');
+    
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        document.getElementById('brochureForm').reset();
+    }, 300);
+}
+
+// Helper to get Django CSRF Token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+async function handleBrochureSubmit(event) {
+    event.preventDefault(); // Stop page reload
+    
+    // Gather data first so we can validate it
+    const name = document.getElementById('brochureName').value.trim();
+    const phone = document.getElementById('brochurePhone').value.trim();
+    const email = document.getElementById('brochureEmail').value.trim();
+    const course_name = document.getElementById('modalCourseName').value;
+
+    // ==========================================
+    // 🚦 FRONT-END VALIDATION LOGIC
+    // ==========================================
+    
+    const nameRegex = /^[a-zA-Z\s]+$/; // Letters and spaces only
+    if (!nameRegex.test(name)) {
+        alert("Please enter a valid Name (letters only)."); 
+        return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert("Please enter a valid Email Address."); 
+        return;
+    } 
+
+    const phoneRegex = /^\d{7,15}$/;
+    if (!phoneRegex.test(phone)) {
+        alert("Please enter valid Phone Number."); 
+        return;
+    }
+
+    // ==========================================
+
+    // If it passes validation, disable button and show processing
+    const btn = document.getElementById('brochureSubmitBtn');
+    btn.innerHTML = 'Processing...';
+    btn.disabled = true;
+
+    // Prepare data for Django
+    const data = { name, phone, email, course_name };
+
+    try {
+        // Send data to Django
+        const response = await fetch('/api/save-brochure-lead/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken 
+                'X-CSRFToken': getCookie('csrftoken')
             },
-            body: JSON.stringify(payload)
-        })
-        .then(response => {
-            // Attempt to parse JSON regardless of HTTP status code to catch backend errors cleanly
-            return response.json().catch(() => {
-                throw new Error("Server returned an invalid response.");
-            });
-        })
-        .then(data => {
-            if(data.status === 'success') {
-                document.getElementById('bill_base').innerText = data.base_amount.toLocaleString('en-IN');
-                document.getElementById('bill_gst').innerText = data.gst.toLocaleString('en-IN');
-                document.getElementById('bill_total').innerText = data.total.toLocaleString('en-IN');
-                
-                razorpayOptions = {
-                    "key": data.key, 
-                    "amount": data.amount, 
-                    "currency": "INR",
-                    "name": "Vetri Technology Solutions",
-                    "order_id": data.order_id, 
-                    "handler": function (response){
-                        const payBtn = document.getElementById('btn-pay-now');
-                        payBtn.innerHTML = 'Processing Payment...';
-                        payBtn.disabled = true;
-
-                        fetch('{% url "verify_payment" %}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRFToken': csrftoken 
-                            },
-                            body: JSON.stringify({
-                                razorpay_payment_id: response.razorpay_payment_id,
-                                razorpay_order_id: response.razorpay_order_id,
-                                razorpay_signature: response.razorpay_signature,
-                                // IMPORTANT: Send the form data to backend ONLY after payment succeeds
-                                user_details: payload,
-                                amount_paid: data.total
-                            })
-                        })
-                        .then(res => res.json())
-                        .then(verifyData => {
-                            if(verifyData.status === 'success') {
-                                
-                                // 1. CLOSE THE ENROLLMENT MODAL
-                                closeEnrollModal();
-                                
-                                // 2. POPULATE THE NEW SUCCESS MODAL
-                                document.getElementById('succ_txn').innerText = verifyData.transaction_id;
-                                document.getElementById('succ_date').innerText = verifyData.date;
-                                document.getElementById('succ_method').innerText = verifyData.method;
-                                document.getElementById('succ_amount').innerText = verifyData.amount;
-                                document.getElementById('succ_email').innerText = verifyData.email;
-
-                                document.getElementById('btn-download-invoice').onclick = function() {
-                                    window.open(`/api/download-invoice/${verifyData.order_id}/`, '_blank');
-                                };
-                                
-                                // 3. OPEN THE NEW SUCCESS MODAL
-                                document.getElementById('successModal').classList.remove('hidden');
-
-                            } else {
-                                alert("Error updating system: " + verifyData.message);
-                                payBtn.innerHTML = 'Pay Now';
-                                payBtn.disabled = false;
-                            }
-                        })
-                        .catch(err => {
-                            console.error(err);
-                            alert("Payment processed, but error updating system. Please contact support.");
-                            payBtn.innerHTML = 'Pay Now';
-                            payBtn.disabled = false;
-                        });
-                    },
-                    "prefill": {
-                        "name": payload.first_name + " " + payload.last_name,
-                        "email": payload.email,
-                        "contact": payload.phone
-                    },
-                    "theme": { "color": "#6C2CB1" }
-                };
-                goToStep(3);
-            } else {
-                // Shows the exact error sent from Django (e.g. "Razorpay connection failed")
-                alert("Could not process enrollment: " + (data.message || "Unknown error"));
-                btn.innerHTML = 'Confirm';
-                btn.disabled = false;
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Graceful error instead of "Check your internet connection"
-            alert("Payment Gateway timeout or server error. Please try submitting again.");
-            btn.innerHTML = 'Confirm';
-            btn.disabled = false;
+            body: JSON.stringify(data)
         });
-    }
 
-    function openRazorpay() {
-        if (!razorpayOptions) {
-            alert("Payment gateway not initialized properly. Please try again.");
-            return;
+        if (response.ok) {
+            // SUCCESS! Trigger the file download invisibly
+            const fileUrl = document.getElementById('modalBrochureUrl').value;
+            const fileName = document.getElementById('modalBrochureFilename').value;
+            
+            const a = document.createElement('a');
+            a.href = fileUrl;
+            a.download = fileName; // Forces download instead of opening in browser
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Close modal and show success message
+            closeBrochureModal();
+            alert('Success! Your brochure is now downloading.');
+        } else {
+            alert('Something went wrong. Please try again.');
         }
-        rzp1 = new Razorpay(razorpayOptions);
-        rzp1.open();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Connection error. Please try again.');
+    } finally {
+        btn.innerHTML = 'Download PDF Now';
+        btn.disabled = false;
     }
+}
 </script>
-{% endif %}
 {% endblock %}
