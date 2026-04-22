@@ -15,24 +15,24 @@ Contact Vetri Training to enquire about online IT courses with placement support
                 <path d="M0 150 C 100 150, 150 50, 250 100 S 400 50, 480 80" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6" fill="none"/>
                 <path d="M480 80 L460 70 L470 90 Z" fill="white"/>
             </svg>
-            <div class="absolute bottom-0 right-[20%] w-64 h-64 bg-purple-500/30 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-[20%] w-64 h-64 bg-purple-500/30 rounded-full blur-3xl animate-pulse" style="animation-duration: 4s;"></div>
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 relative z-10">
             <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-                <div class="w-full lg:w-5/12 text-center px-4 lg:text-left pt-0">
+                <div class="w-full lg:w-5/12 text-center px-4 lg:text-left pt-0 reveal-left">
                     <h1 class="text-xl font-semibold text-black mb-4 leading-tight">Get in Touch with our Experts</h1>
                     <p class="text-gray-700 text-[15px] mb-6">
                         Have questions? We're here to help you start your learning journey
                     </p>
-                    <button onclick="sendWhatsApp()" class="bg-[#FF9C00] text-white font-semibold py-1.5 px-2 rounded-md shadow-md hover:bg-[#e68a00] transition-colors">
+                    <button onclick="sendWhatsApp()" class="bg-[#FF9C00] text-white font-semibold py-1.5 px-2 rounded-md shadow-md hover:bg-[#e68a00] hover:-translate-y-1 transform transition-all duration-300">
                         Free Consultation
                     </button>
                 </div>
 
-                <div class="w-full lg:w-7/12 relative md:h-[400px]">
-                    <div class="absolute -top-10 -right-10 w-48 h-48 bg-[#FF9C00] rounded-full -z-10"></div>
-                    <div class="bg-white rounded-xl shadow-2xl p-4 border border-2 border-[#6C2CB1]">
+                <div class="w-full lg:w-7/12 relative md:h-[400px] reveal-right" style="transition-delay: 200ms;">
+                    <div class="absolute -top-10 -right-10 w-48 h-48 bg-[#FF9C00] rounded-full -z-10 animate-float"></div>
+                    <div class="bg-white rounded-xl shadow-2xl p-4 border border-2 border-[#6C2CB1] transform transition-transform duration-500 hover:scale-[1.02]">
                         <h2 class="text-xl font-semibold text-black mb-6">Enquiry Form</h2>
             
                         <form id="contactEnquiryForm" class="space-y-1">
@@ -41,22 +41,21 @@ Contact Vetri Training to enquire about online IT courses with placement support
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div>
                                     <label class="block text-sm font-bold text-gray-800 mb-1">Full Name</label>
-                                    <input type="text" id="eq_name" required pattern="[A-Za-z\s\.\-']+" title="Only letters and spaces allowed" placeholder="Name" class="w-full border-2 border-gray-200 rounded-md py-1.5 px-4 focus:outline-none focus:border-[#6C2CB1]">
+                                    <input type="text" id="eq_name" required pattern="[A-Za-z\s\.\-']+" title="Only letters and spaces allowed" placeholder="Name" class="w-full border-2 border-gray-200 rounded-md py-1.5 px-4 focus:outline-none focus:border-[#6C2CB1] transition-colors">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-bold text-gray-800 mb-1">Email Address</label>
-                                    <input type="email" id="eq_email" required placeholder="email@gmail.com" class="w-full border-2 border-gray-200 rounded-md py-1 px-4 focus:outline-none focus:border-[#6C2CB1]">
+                                    <input type="email" id="eq_email" required placeholder="email@gmail.com" class="w-full border-2 border-gray-200 rounded-md py-1 px-4 focus:outline-none focus:border-[#6C2CB1] transition-colors">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-bold text-gray-800 mb-1">Phone Number</label>
-                                    <input type="tel" id="eq_phone" required pattern="[0-9]{7,15}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter digits" placeholder="Mobile number" class="w-full border-2 border-gray-200 rounded-md py-1 px-4 focus:outline-none focus:border-[#6C2CB1]">
+                                    <input type="tel" id="eq_phone" required pattern="[0-9]{7,15}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter digits" placeholder="Mobile number" class="w-full border-2 border-gray-200 rounded-md py-1 px-4 focus:outline-none focus:border-[#6C2CB1] transition-colors">
                                 </div>
                                 <div class="flex flex-col">
                                     <label class="text-sm font-bold text-gray-800 mb-1">
                                         Course Interest <span class="text-red-500">*</span>
                                     </label>
-                                    <select id="course_interest" name="course_interest" required
-                                        class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00]">
+                                    <select id="course_interest" name="course_interest" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00] transition-colors">
                                         <option value="">-- Select a Course --</option>
                                         {% for course in courses %}
                                             <option value="{{ course.coursename }}">{{ course.coursename }}</option>
@@ -67,7 +66,7 @@ Contact Vetri Training to enquire about online IT courses with placement support
                             </div>
                             <div class="mt-2">
                                 <label class="block text-sm font-bold text-gray-800 mb-1">Message</label>
-                                <textarea id="eq_msg" required rows="4" placeholder="Type here.." class="w-full border-2 border-gray-200 rounded-md py-2 px-4 focus:outline-none focus:border-[#6C2CB1]"></textarea>
+                                <textarea id="eq_msg" required rows="4" placeholder="Type here.." class="w-full border-2 border-gray-200 rounded-md py-2 px-4 focus:outline-none focus:border-[#6C2CB1] transition-colors"></textarea>
                             </div>
                             <button type="button" onclick="submitContactEnquiry()" id="btn-submit-enquiry" class="w-full bg-[#FF9C00] text-white font-bold py-2.5 rounded-md shadow-md hover:bg-[#e68a00] transition-colors mt-4">
                                 Submit
@@ -81,14 +80,14 @@ Contact Vetri Training to enquire about online IT courses with placement support
     </section>
 
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h2 class="text-2xl font-semibold mb-4">We are here for You</h2>
+        <h2 class="text-2xl font-semibold mb-4 reveal-up">We are here for You</h2>
         
         <div class="flex flex-col lg:flex-row gap-12 h-[600px] lg:h-[360px]">
             <div class="w-full lg:w-1/4 flex flex-col gap-5 h-full">
                 {% for card in contact_cards %}
-                    <div class="border-2 border-[#EAE0F5] rounded-xl py-2 px-4 flex flex-col justify-center flex-1 bg-white">
+                    <div class="border-2 border-[#EAE0F5] rounded-xl py-2 px-4 flex flex-col justify-center flex-1 bg-white hover:shadow-lg transition-shadow duration-300 group reveal-up" style="transition-delay: {{ forloop.counter }}00ms;">
                         
-                        <div class="w-12 h-12 bg-[#6C2CB1] rounded-full flex items-center justify-center text-white mb-4">
+                        <div class="w-12 h-12 bg-[#6C2CB1] rounded-full flex items-center justify-center text-white mb-4 transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
                             {% if card.icon == 'clock' %}
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             {% elif card.icon == 'phone' %}
@@ -100,57 +99,55 @@ Contact Vetri Training to enquire about online IT courses with placement support
                             {% endif %}
                         </div>
                         
-                        <h4 class="font-semibold text-black mb-1">{{ card.title }}</h4>
-                        
+                        <h4 class="font-semibold text-black mb-1 group-hover:text-[#FF9C00] transition-colors">{{ card.title }}</h4>
                         <p class="text-[14px] text-gray-700 font-medium">{{ card.details|linebreaksbr }}</p>
-
                     </div>
                 {% empty %}
-                        <p class="text-gray-500">Contact information coming soon.</p>
+                        <p class="text-gray-500 reveal-up">Contact information coming soon.</p>
                 {% endfor %}
             </div>
 
-            <div class="w-full lg:w-3/4 h-full rounded-2xl overflow-hidden shadow-md relative z-0">
+            <div class="w-full lg:w-3/4 h-full rounded-2xl overflow-hidden shadow-md relative z-0 reveal-left" style="transition-delay: 300ms;">
                 <div id="dynamic-map" class="w-full h-full"></div>
             </div>
         </div>
     </section>
 
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <h2 class="text-2xl font-semibold text-center text-black mb-16">Visit Our Branches</h2>
+        <h2 class="text-2xl font-semibold text-center text-black mb-16 reveal-up">Visit Our Branches</h2>
         <div class="grid grid-cols-1 md:px-28 md:grid-cols-2 gap-8 lg:gap-12">
             {% for branch in branches %}
-            <div class="border-2 border-[#EAE0F5] rounded-xl p-4 text-center hover:shadow-lg transition-shadow bg-white flex flex-col items-center relative">
-                <div class="w-10 h-10 bg-[#6C2CB1] rounded-full flex items-center justify-center text-white mb-4">
+            <div class="border-2 border-[#EAE0F5] rounded-xl p-4 text-center shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300 bg-white flex flex-col items-center relative group reveal-up" style="transition-delay: {{ forloop.counter }}00ms;">
+                <div class="w-10 h-10 bg-[#6C2CB1] rounded-full flex items-center justify-center text-white mb-4 transform transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.242-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                 </div>
-                <h4 class="font-semibold text-black text-[18px] mb-1">{{ branch.name }}</h4>
+                <h4 class="font-semibold text-black text-[18px] mb-1 group-hover:text-[#6C2CB1] transition-colors">{{ branch.name }}</h4>
                 <p class="text-[15px] text-gray-700 font-medium leading-relaxed max-w-sm mx-auto mb-2">
                     {{ branch.address }}
                 </p>
                 
                 {% if branch.map_link %}
-                <a href="{{ branch.map_link }}" target="_blank" class="mt-auto inline-flex items-center text-[#6C2CB1] font-bold text-sm hover:text-purple-500 transition-colors">
+                <a href="{{ branch.map_link }}" target="_blank" class="mt-auto inline-flex items-center text-[#6C2CB1] font-bold text-sm hover:text-[#FF9C00] transition-colors group-hover:underline">
                     Get Directions 
-                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </a>
                 {% endif %}
             </div>
             {% empty %}
-            <p class="text-center text-gray-500 col-span-2">No branches added yet. Please add them in the Django admin.</p>
+            <p class="text-center text-gray-500 col-span-2 reveal-up">No branches added yet. Please add them in the Django admin.</p>
             {% endfor %}
         </div>
     </section>
 
     {% for category_name, images in grouped_env_images.items %}
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-sans">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-sans reveal-up">
         
         <div class="flex justify-between items-center mb-6">
             <h2 class="lg:text-2xl text-xl font-semibold text-black">{{ category_name }}</h2>
             
-            <a href="{% url 'image_gallery' %}" class="text-[#6C2CB1] font-bold text-sm text-center flex items-center hover:underline transition-all">
+            <a href="{% url 'image_gallery' %}" class="text-[#6C2CB1] font-bold text-sm text-center flex items-center hover:text-[#FF9C00] transition-colors group">
                 View all
-                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>
             </a>
@@ -159,25 +156,25 @@ Contact Vetri Training to enquire about online IT courses with placement support
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {% for env in images|slice:":3" %} 
             
-            <div class="rounded-2xl overflow-hidden h-64 shadow-md group relative {% if env.media_type == 'video' and env.video %}cursor-pointer{% endif %}"
+            <div class="rounded-2xl overflow-hidden h-64 shadow-md group relative reveal-up {% if env.media_type == 'video' and env.video %}cursor-pointer{% endif %}" style="transition-delay: {{ forloop.counter }}00ms;"
                  {% if env.media_type == 'video' and env.video %}onclick="openVideoModal('{{ env.video.url }}')"{% endif %}>
                 
                 {% if env.media_type == 'video' and env.video %}
                     {% if env.image %}
-                        <img src="{{ env.image.url }}" alt="{{ env.alt_text }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ env.image.url }}" alt="{{ env.alt_text }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
                     {% else %}
-                        <video src="{{ env.video.url }}#t=0.1" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" muted playsinline preload="metadata"></video>
+                        <video src="{{ env.video.url }}#t=0.1" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" muted playsinline preload="metadata"></video>
                     {% endif %}
                     
-                    <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors duration-300">
-                        <svg class="w-16 h-16 text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/50 transition-colors duration-500">
+                        <svg class="w-16 h-16 text-white opacity-80 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500 drop-shadow-lg group-hover:text-[#FF9C00]" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
                         </svg>
                     </div>
 
                 {% else %}
-                    <img src="{{ env.image.url }}" alt="{{ env.alt_text }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                    <img src="{{ env.image.url }}" alt="{{ env.alt_text }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                 {% endif %}
 
             </div>
@@ -185,39 +182,35 @@ Contact Vetri Training to enquire about online IT courses with placement support
         </div>
 
     </section>
-{% empty %}
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    {% empty %}
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 reveal-up">
         <div class="text-center text-gray-500">No environment media uploaded yet.</div>
     </section>
-{% endfor %}
+    {% endfor %}
 
-<div id="videoModal" onclick="closeVideoModal()" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/90 backdrop-blur-sm transition-opacity duration-300 opacity-0">
-    
-    <div onclick="event.stopPropagation()" class="relative w-full max-w-5xl mx-4 transform scale-95 transition-transform duration-300" id="videoModalContent">
-        
-        <button onclick="closeVideoModal()" class="absolute -top-12 right-0 text-white hover:text-[#FF9C00] bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-
-        <div class="rounded-xl overflow-hidden shadow-2xl bg-black aspect-video flex items-center justify-center border border-white/10">
-            <video id="modalVideoPlayer" class="w-full h-full outline-none" controls controlsList="nodownload">
-                <source src="" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+    <div id="videoModal" onclick="closeVideoModal()" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/90 backdrop-blur-sm transition-opacity duration-300 opacity-0">
+        <div onclick="event.stopPropagation()" class="relative w-full max-w-5xl mx-4 transform scale-95 transition-transform duration-300" id="videoModalContent">
+            <button onclick="closeVideoModal()" class="absolute -top-12 right-0 text-white hover:text-red-500 bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors transform hover:rotate-90 duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="rounded-xl overflow-hidden shadow-2xl bg-black aspect-video flex items-center justify-center border border-white/10">
+                <video id="modalVideoPlayer" class="w-full h-full outline-none" controls controlsList="nodownload">
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
         </div>
-
     </div>
-</div>
 
     <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mb-16">
-        <h2 class="text-2xl font-semibold text-center text-black mb-10">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-semibold text-center text-black mb-10 reveal-up">Frequently Asked Questions</h2>
         
         <div class="space-y-4">
             {% for faq in faqs %}
-            <div class="faq-item rounded-xl overflow-hidden bg-[#F3E8FF] transition-all duration-300">
-                <button class="faq-btn w-full text-left px-6 py-5 flex justify-between items-center focus:outline-none">
-                    <span class="font-semibold text-black text-[16px] pr-4">{{ faq.question }}</span>
-                    <svg class="faq-icon w-5 h-5 text-[#6C2CB1] transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+            <div class="faq-item rounded-xl overflow-hidden bg-[#F3E8FF] border border-transparent hover:border-[#6C2CB1]/30 transition-all duration-300 hover:shadow-md reveal-up" style="transition-delay: {{ forloop.counter }}00ms;">
+                <button class="faq-btn w-full text-left px-6 py-5 flex justify-between items-center focus:outline-none group">
+                    <span class="font-semibold text-black text-[16px] pr-4 group-hover:text-[#6C2CB1] transition-colors">{{ faq.question }}</span>
+                    <svg class="faq-icon w-5 h-5 text-[#6C2CB1] transform transition-transform duration-300 group-hover:scale-125" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 <div class="faq-answer hidden px-6 pb-5 text-[15px] text-gray-700 font-medium">
                     {{ faq.answer }}
@@ -228,6 +221,44 @@ Contact Vetri Training to enquire about online IT courses with placement support
     </section>
 
 </div>
+
+<style>
+    .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal-active { opacity: 1; transform: translate(0, 0); }
+    
+    @keyframes floatImg {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+    }
+    .animate-float {
+        animation: floatImg 4s ease-in-out infinite;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const observerOptions = {
+            root: null,
+            threshold: 0.1, 
+            rootMargin: "0px 0px -50px 0px" 
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => {
+            observer.observe(el);
+        });
+    });
+</script>
 
 <script>
 function sendWhatsApp() {

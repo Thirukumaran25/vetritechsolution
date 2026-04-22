@@ -1,4 +1,4 @@
-from .models import CompanyLink
+from .models import *
 
 def company_links(request):
     def fix_url(link):
@@ -8,10 +8,13 @@ def company_links(request):
 
     vis = CompanyLink.objects.filter(name__icontains="VIS").first()
     vcs = CompanyLink.objects.filter(name__icontains="VCS").first()
+    settings = SiteSettings.objects.first()
 
     return {
         "vis_link": fix_url(vis.url if vis else None),
         "vcs_link": fix_url(vcs.url if vcs else None),
+        "site_settings": settings,
+        "footer_addresses": OfficeAddress.objects.all(),
     }
 
 

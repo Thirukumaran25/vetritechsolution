@@ -7,7 +7,8 @@ Discover job-oriented online courses with placement support. Build in-demand ski
 {% block content %}
 
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 font-sans">
-    <div class="relative flex flex-col text-center mb-10">
+    
+    <div class="relative flex flex-col text-center mb-10 reveal-up">
         <div class="flex items-center justify-center mb-4">
             <div class="hidden md:block w-[180px] flex-shrink-0"></div>
 
@@ -19,12 +20,12 @@ Discover job-oriented online courses with placement support. Build in-demand ski
                 {% endif %}
             </h2>
             <div class="hidden md:flex justify-end w-[180px] flex-shrink-0">
-                <button  onclick="sendWhatsApp()" class="bg-[#FF9C00] text-white font-bold py-2.5 px-6 rounded-md shadow-md hover:bg-[#e68a00] whitespace-nowrap">
+                <button  onclick="sendWhatsApp()" class="bg-[#FF9C00] text-white font-bold py-2.5 px-6 rounded-md shadow-md hover:bg-[#e68a00] whitespace-nowrap transform transition-transform hover:-translate-y-1">
                     Free Consultation
                 </button>
             </div>
         </div>
-        <div class="flex flex-wrap gap-2 sm:gap-6 text-md font-semibold">
+        <div class="flex flex-wrap gap-2 sm:gap-6 text-md font-semibold ">
             <a href="?category=all"
                 class="{% if active_category == 'all' %}bg-[#6C2CB1] text-white px-8 py-2.5 rounded-full shadow-md{% else %}text-[#6C2CB1] px-4 py-2.5 rounded-full hover:text-purple-500{% endif %} transition-all">
                 All
@@ -42,10 +43,10 @@ Discover job-oriented online courses with placement support. Build in-demand ski
 
         {% if courses %}
             {% for course in courses %} 
-                <div class="course-card h-full flex flex-col border-[3.5px] border-[#6C2CB1] rounded-2xl overflow-hidden bg-white hover:shadow-xl hover:transform hover:-translate-x-2 hover:-translate-y-2 transition-all duration-300" data-category="{{ course.category.name }}">  
-                    <div class="w-full h-40 bg-blue-50 relative">
+                <div class="course-card reveal-up h-full flex flex-col border-[3.5px] border-[#6C2CB1] rounded-2xl overflow-hidden bg-white hover:shadow-xl hover:transform hover:-translate-x-2 hover:-translate-y-2 transition-all duration-300" data-category="{{ course.category.name }}">  
+                    <div class="w-full h-40 bg-blue-50 relative overflow-hidden">
                         {% if course.thumbnail %}
-                        <img src="{{ course.thumbnail.url }}" alt="{{ course.coursename }}" class="w-full h-full object-cover">
+                        <img src="{{ course.thumbnail.url }}" alt="{{ course.coursename }}" class="w-full h-full object-cover transform transition-transform duration-700 hover:scale-110">
                         {% endif %}
                     </div>
                     <div class="p-4 flex flex-col flex-grow">
@@ -70,7 +71,7 @@ Discover job-oriented online courses with placement support. Build in-demand ski
                             {{ course.short_description }}
                         </p>
                         <div class="flex items-center gap-2 justify-between mt-auto">
-                            <a href="{% url 'course_detail' course.slug %}" class="border border-[#FF9C00] text-gray-700 font-semibold text-sm px-4 md:px-8 py-2.5 rounded hover:bg-gray-50 transition-colors">
+                            <a href="{% url 'course_detail' course.slug %}" class="border border-[#FF9C00] text-gray-700 font-semibold text-sm px-4 md:px-8 py-2.5 rounded hover:bg-[#FF9C00] hover:text-white transition-colors duration-300">
                                 View Details
                             </a>
                             {% if course.is_enrollable_online %}
@@ -88,7 +89,7 @@ Discover job-oriented online courses with placement support. Build in-demand ski
                 {% endfor %}
             
         {% else %}
-            <div class="col-span-full text-center py-16">
+            <div class="col-span-full text-center py-16 reveal-up">
                 <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
@@ -96,11 +97,11 @@ Discover job-oriented online courses with placement support. Build in-demand ski
                 {% if request.GET.q %}
                     <h3 class="text-2xl font-bold text-[#6C2CB1] mb-3">No courses found matching "{{ request.GET.q }}"</h3>
                     <p class="text-gray-600 mb-6">Try checking your spelling or searching for a different keyword.</p>
-                    <a href="?category=all" class="inline-block bg-[#FF9C00] text-white font-bold py-2 px-6 rounded-md hover:bg-[#e68a00]">View All Courses</a>
+                    <a href="?category=all" class="inline-block bg-[#FF9C00] text-white font-bold py-2 px-6 rounded-md hover:bg-[#e68a00] transition-colors">View All Courses</a>
                 {% else %}
                     <h3 class="text-2xl font-bold text-[#6C2CB1] mb-3">No Courses Available </h3>
                     <p class="text-gray-600 mb-6">We are currently updating our syllabus for this category. Please check back later!</p>
-                    <a href="?category=all" class="inline-block border border-[#6C2CB1] text-[#6C2CB1] font-bold py-2 px-6 rounded-md hover:bg-gray-50">View All Courses</a>
+                    <a href="?category=all" class="inline-block border border-[#6C2CB1] text-[#6C2CB1] font-bold py-2 px-6 rounded-md hover:bg-[#6C2CB1] hover:text-white transition-colors">View All Courses</a>
                 {% endif %}
             </div>
         {% endif %}
@@ -108,12 +109,10 @@ Discover job-oriented online courses with placement support. Build in-demand ski
     </div>
 </section>
 
-<!-- Replace your entire enrollment modal and JS block at the bottom of course_list.html with this -->
-
 <div id="enrollModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 font-sans transition-opacity">
     <div class="bg-white w-full max-w-[1000px] rounded-3xl shadow-2xl relative flex flex-col max-h-[95vh] overflow-hidden">
         
-        <button onclick="closeEnrollModal()" class="absolute top-4 right-5 text-gray-500 hover:text-red-500 transition-colors z-50">
+        <button onclick="closeEnrollModal()" class="absolute top-4 right-5 text-gray-500 hover:text-red-500 transition-all transform hover:rotate-90 duration-300 z-50">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         </button>
 
@@ -149,23 +148,23 @@ Discover job-oriented online courses with placement support. Build in-demand ski
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-5">
                     <div class="flex flex-col">
                         <label class="text-sm font-bold text-gray-800 mb-1">First Name <span class="text-red-500">*</span></label>
-                        <input type="text" id="first_name" placeholder="Enter your first name" required pattern="[A-Za-z\s\.\-']+" title="Only letters and spaces allowed" class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00]">
+                        <input type="text" id="first_name" placeholder="Enter your first name" required pattern="[A-Za-z\s\.\-']+" title="Only letters and spaces allowed" class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00] transition-colors">
                     </div>
                     <div class="flex flex-col">
                         <label class="text-sm font-bold text-gray-800 mb-1">Last Name <span class="text-red-500">*</span></label>
-                        <input type="text" id="last_name" placeholder="Enter your last name" required pattern="[A-Za-z\s\.\-']+" title="Only letters and spaces allowed" class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00]">
+                        <input type="text" id="last_name" placeholder="Enter your last name" required pattern="[A-Za-z\s\.\-']+" title="Only letters and spaces allowed" class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00] transition-colors">
                     </div>
                     <div class="flex flex-col">
                         <label class="text-sm font-bold text-gray-800 mb-1">Phone Number <span class="text-red-500">*</span></label>
-                        <input type="tel" id="phone" placeholder="10-digit mobile number" required maxlength="10" minlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter exactly 10 digits" class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00]">
+                        <input type="tel" id="phone" placeholder="10-digit mobile number" required maxlength="10" minlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter exactly 10 digits" class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00] transition-colors">
                     </div>
                     <div class="flex flex-col">
                         <label class="text-sm font-bold text-gray-800 mb-1">Email Address <span class="text-red-500">*</span></label>
-                        <input type="email" id="email" placeholder="e.g. name@example.com" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00]">
+                        <input type="email" id="email" placeholder="e.g. name@example.com" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00] transition-colors">
                     </div>
                     <div class="flex flex-col">
                         <label class="text-sm font-bold text-gray-800 mb-1">Gender <span class="text-red-500">*</span></label>
-                        <select id="gender" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00]">
+                        <select id="gender" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00] transition-colors">
                             <option value="">Please Select</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -174,31 +173,31 @@ Discover job-oriented online courses with placement support. Build in-demand ski
                     </div>
                     <div class="flex flex-col">
                         <label class="text-sm font-bold text-gray-800 mb-1">Date of Birth <span class="text-red-500">*</span></label>
-                        <input type="date" id="dob" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00]">
+                        <input type="date" id="dob" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00] transition-colors">
                     </div>
                     <div class="flex flex-col">
                         <label class="text-sm font-bold text-gray-800 mb-1">Address <span class="text-red-500">*</span></label>
-                        <input type="text" id="address" placeholder="Door no, Street name" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00]">
+                        <input type="text" id="address" placeholder="Door no, Street name" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00] transition-colors">
                     </div>
                     <div class="flex flex-col">
                         <label class="text-sm font-bold text-gray-800 mb-1">City <span class="text-red-500">*</span></label>
-                        <input type="text" id="city" placeholder="e.g. Chennai" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00]">
+                        <input type="text" id="city" placeholder="e.g. Chennai" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00] transition-colors">
                     </div>
                     <div class="flex flex-col">
                         <label class="text-sm font-bold text-gray-800 mb-1">State <span class="text-red-500">*</span></label>
-                        <input type="text" id="state" placeholder="e.g. Tamil Nadu" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00]">
+                        <input type="text" id="state" placeholder="e.g. Tamil Nadu" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00] transition-colors">
                     </div>
                     <div class="flex flex-col">
                         <label class="text-sm font-bold text-gray-800 mb-1">Pincode <span class="text-red-500">*</span></label>
-                        <input type="text" id="pincode" placeholder="6-digit pincode" required maxlength="6" minlength="6" pattern="\d{6}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter exactly 6 digits" class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00]">
+                        <input type="text" id="pincode" placeholder="6-digit pincode" required maxlength="6" minlength="6" pattern="\d{6}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter exactly 6 digits" class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00] transition-colors">
                     </div>
                     <div class="flex flex-col">
                         <label class="text-sm font-bold text-gray-800 mb-1">Select Course <span class="text-red-500">*</span></label>
-                        <input type="text" id="course_name" value="" readonly class="border-2 border-gray-300 bg-gray-50 rounded-md py-2 px-3 text-gray-600 focus:outline-none cursor-not-allowed">
+                        <input type="text" id="course_name" value="" readonly class="border-2 border-gray-300 bg-gray-50 rounded-md py-2 px-3 text-gray-600 focus:outline-none cursor-not-allowed transition-colors">
                     </div>
                     <div class="flex flex-col">
                         <label class="text-sm font-bold text-gray-800 mb-1">Available Mode <span class="text-red-500">*</span></label>
-                        <select id="mode" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00]">
+                        <select id="mode" required class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00] transition-colors">
                             <option value="">Please Select</option>
                             <option value="Online">Online</option>
                             <option value="Offline">Offline</option>
@@ -206,7 +205,7 @@ Discover job-oriented online courses with placement support. Build in-demand ski
                     </div>
                     <div class="flex flex-col md:col-span-3">
                         <label class="text-sm font-bold text-gray-800 mb-1">Message</label>
-                        <textarea id="message" rows="3" placeholder="Any additional information..." class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00]"></textarea>
+                        <textarea id="message" rows="3" placeholder="Any additional information..." class="border-2 border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#FF9C00] transition-colors"></textarea>
                     </div>
                 </div>
 
@@ -245,6 +244,37 @@ Discover job-oriented online courses with placement support. Build in-demand ski
         </div>
     </div>
 </div>
+
+<style>
+    .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal-active { opacity: 1; transform: translate(0, 0); }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Scroll Reveal Observer
+        const observerOptions = {
+            root: null,
+            threshold: 0.1, 
+            rootMargin: "0px 0px -50px 0px" 
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-up').forEach((el, index) => {
+            // Added a slight stagger effect based on index so cards pop in one after another
+            el.style.transitionDelay = `${(index % 3) * 150}ms`;
+            observer.observe(el);
+        });
+    });
+</script>
 
 <script>
 function sendWhatsApp() {

@@ -1,0 +1,35 @@
+{% extends 'base.html' %} 
+{% block title %}Terms and Conditions |Vetri {% endblock %}
+{% block meta_description %}
+Terms and Conditions for online IT courses with placement support. Get course details, guidance, and start your career today.
+{% endblock %}
+
+{% block content %}
+<main class=" min-h-screen py-4">
+    <div class=" mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="bg-white rounded-t-2xl p-4">
+            <h1 class="text-2xl font-semibold text-center">
+                {{ terms.title|default:"Terms and Conditions" }}
+            </h1>
+        </div>
+
+        <div class="bg-white rounded-b-2xl px-8 py-4 ">
+            {% if terms and terms.content %}
+                <ul class="list-disc ml-5 md:ml-8 space-y-4 text-gray-700 text-[15px] md:text-[16px] leading-relaxed marker:text-[#6C2CB1]">   
+                    {% for line in terms.content.splitlines %}                        
+                        {% if line.strip %}
+                            <li>{{ line }}</li>
+                        {% endif %}                       
+                    {% endfor %}                   
+                </ul>
+            {% else %}
+                <p class="text-center text-gray-500 italic">
+                    Terms and Conditions are currently being updated. Please check back later.
+                </p>
+            {% endif %}
+
+        </div>
+    </div>
+</main>
+{% endblock %}

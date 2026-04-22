@@ -693,7 +693,66 @@ class CompanyStat(models.Model):
 
     def __str__(self):
         return f"{self.value} - {self.label}"
+
+
+class SiteSettings(models.Model):
+    site_name = models.CharField(max_length=100, default="VETRI TECHNOLOGY SOLUTIONS")
+    primary_phone = models.CharField(max_length=20, default="8438164827", help_text="Phone number for the top header")
+    banner_text = models.CharField(max_length=255, default="India's First IT Training Institute with 100% Placement 👍")
+    site_logo = models.ImageField(upload_to='logos/', blank=True, null=True, help_text="Main header logo")
+    copyright_text = models.CharField(max_length=255, default="© 2026 All Rights Reserved By DITRP")
+    footer_logo = models.ImageField(upload_to='logos/', blank=True, null=True)
+    facebook_url = models.URLField(blank=True, null=True)
+    instagram_url = models.URLField(blank=True, null=True)
+    twitter_url = models.URLField(blank=True, null=True)
+    youtube_url = models.URLField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Site Setting"
+        verbose_name_plural = "Site Settings"
+
+    def __str__(self):
+        return "Global Site Settings"
+
+
+class OfficeAddress(models.Model):
+    title = models.CharField(max_length=100, blank=True, help_text="Optional: e.g., Tirunelveli Branch")
+    address_lines = models.TextField(help_text="Full address. Use Enter for new lines.")
+    order = models.IntegerField(default=0, help_text="Lower numbers show up first")
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = "Office Address"
+        verbose_name_plural = "Office Addresses"
+
+    def __str__(self):
+        return self.title or "Office Address"
+
+
+class TermsAndCondition(models.Model):
+    title = models.CharField(max_length=200, default="Terms and Conditions")
+    content = models.TextField(help_text="Enter the Terms and Conditions here. Use Enter for new paragraphs.")
+    last_updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Terms & Condition"
+        verbose_name_plural = "Terms & Conditions"
+
+    def __str__(self):
+        return self.title
     
+
+class PrivacyPolicy(models.Model):
+    title = models.CharField(max_length=200, default="Privacy Policy")
+    content = models.TextField(help_text="Enter the Privacy Policy here. Use Enter for new paragraphs.")
+    last_updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Privacy Policy"
+        verbose_name_plural = "Privacy Policies"
+
+    def __str__(self):
+        return self.title
 
 class BrochureLead(models.Model):
     name = models.CharField(max_length=100)

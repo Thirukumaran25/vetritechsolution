@@ -265,11 +265,43 @@ admin.site.register(StorySection)
 
 @admin.register(StudentStory)
 class StudentStoryAdmin(admin.ModelAdmin):
-    list_display  = ('student_name', 'course_or_role', 'order')
+    list_display  = ('student_name','section', 'course_or_role', 'order')
     ordering      = ('order', '-id')
     search_fields = ('student_name', 'course_or_role')
 
+
+@admin.register(TermsAndCondition)
+class TermsAndConditionAdmin(admin.ModelAdmin):
+    list_display = ('title', 'last_updated')
+
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            return False
+        return super().has_add_permission(request)
+
+@admin.register(PrivacyPolicy)
+class PrivacyPolicyAdmin(admin.ModelAdmin):
+    list_display = ('title', 'last_updated')
+    
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            return False
+        return super().has_add_permission(request)
+
 admin.site.register(CompanyLink)
+
+@admin.register(SiteSettings)
+class SiteSettingsAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            return False
+        return super().has_add_permission(request)
+
+@admin.register(OfficeAddress)
+class OfficeAddressAdmin(admin.ModelAdmin):
+    list_display = ('title', 'order')
+    list_editable = ('order',)
+    ordering = ('order',)
 
     
 @admin.register(Contactnumber)

@@ -132,7 +132,6 @@ def create_enrollment(request):
                     'course': course.coursename
                 })
             except Exception:
-                # Fallback if text template is missing
                 student_msg = f"Dear {enrollment.first_name},\n\nYour application for {course.coursename} was received. Our team will contact you shortly.\n\nRegards,\nVetri Technology Solutions."
 
             admin_subject = f"New Enrollment Application: {enrollment.first_name} {enrollment.last_name}"
@@ -280,6 +279,21 @@ def submit_enquiry(request):
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=405)
 
+
+def terms_conditions(request):
+    terms = TermsAndCondition.objects.first()
+    context = {
+        'terms': terms
+    }
+    return render(request, 'terms.html', context)
+
+def privacy_policy(request):
+    policy = PrivacyPolicy.objects.first()
+    
+    context = {
+        'policy': policy
+    }
+    return render(request, 'privacy.html', context)
 
 def image_gallery(request):
     categories = ImageCategory.objects.prefetch_related('images').all()

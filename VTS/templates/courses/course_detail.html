@@ -71,8 +71,8 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
 </style>
 
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 font-sans relative">
-    <div class="mb-6">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 font-sans relative overflow-hidden">
+    <div class="mb-6 reveal-left">
         <a href="{% url 'courses' %}" class="inline-flex items-center text-sm font-semibold text-[#6C2CB1] hover:text-[#FF9C00] transition-colors">
             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             Back to All Courses
@@ -81,7 +81,7 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
 
     <div class="flex flex-col lg:flex-row gap-4 justify-between">
         
-        <div class="w-full lg:w-2/3">
+        <div class="w-full lg:w-2/3 reveal-up">
             <h1 class="text-[28px] font-semibold text-[#6621BA] mb-3 leading-tight">
                 {{ course.detailtitle }}
             </h1>
@@ -90,7 +90,8 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
                 {% if course.subtitle_2 %}<p>{{ course.subtitle_2 }}</p>{% endif %}
                 {% if course.subtitle_3 %}<p>{{ course.subtitle_3 }}</p>{% endif %}
             </div>
-            <div class="mb-8 w-full max-w-[300px] relative">
+            
+            <div class="mb-8 w-full max-w-[300px] relative reveal-up" style="transition-delay: 100ms;">
         
                 {% if course.emi_available %}
                 <div class="absolute -top-3 -right-2 z-20 flex items-center gap-1.5 bg-white border-2 border-red-500 px-3 py-1 rounded-full shadow-lg animate-status-blink">
@@ -120,7 +121,7 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 w-full max-w-7xl mx-auto">
                 
-                <div class="bg-gradient-to-r from-[#f8faff] to-[#f3e8ff] border border-purple-100 rounded-xl px-3 py-2 flex items-center gap-3 min-h-[60px] shadow-sm">
+                <div class="bg-gradient-to-r from-[#f8faff] to-[#f3e8ff] border border-purple-100 rounded-xl px-3 py-2 flex items-center gap-3 min-h-[60px] shadow-sm reveal-up" style="transition-delay: 200ms;">
                     <svg class="w-5 h-5 text-[#FF9C00] animate-spin-slow flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
@@ -130,7 +131,7 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
                     </div>
                 </div>
 
-                <div class="bg-gradient-to-r from-[#f8faff] to-[#f3e8ff] border border-purple-100 rounded-xl px-3 py-2 flex items-center gap-3 min-h-[60px] shadow-sm">
+                <div class="bg-gradient-to-r from-[#f8faff] to-[#f3e8ff] border border-purple-100 rounded-xl px-3 py-2 flex items-center gap-3 min-h-[60px] shadow-sm reveal-up" style="transition-delay: 300ms;">
                     <svg class="text-[#FF9C00] w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
                     </svg>
@@ -140,7 +141,7 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
                     </div>
                 </div>
 
-                <div class="bg-gradient-to-r from-[#f8faff] to-[#f3e8ff] border border-purple-100 rounded-xl px-3 py-2 flex items-center gap-3 min-h-[60px] shadow-sm">
+                <div class="bg-gradient-to-r from-[#f8faff] to-[#f3e8ff] border border-purple-100 rounded-xl px-3 py-2 flex items-center gap-3 min-h-[60px] shadow-sm reveal-up" style="transition-delay: 400ms;">
                     <svg class="text-[#FF9C00] w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="8" stroke-width="3"></circle>
                         <circle cx="12" cy="12" r="4" stroke-width="2.5"></circle>
@@ -151,7 +152,7 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
                     </div>
                 </div>
 
-                <div class="bg-gradient-to-r from-[#f8faff] to-[#f3e8ff] border border-purple-100 rounded-xl px-3 py-2 flex items-center gap-3 min-h-[60px] shadow-sm">
+                <div class="bg-gradient-to-r from-[#f8faff] to-[#f3e8ff] border border-purple-100 rounded-xl px-3 py-2 flex items-center gap-3 min-h-[60px] shadow-sm reveal-up" style="transition-delay: 500ms;">
                     <svg class="text-[#FF9C00] w-5 h-5 flex-shrink-0 animate-heartbeat" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
@@ -162,13 +163,13 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
                 </div>
             </div>
 
-            <div class="flex gap-4 md:gap-10">
+            <div class="flex gap-4 md:gap-10 reveal-up" style="transition-delay: 600ms;">
                 {% if course.is_enrollable_online %}
-                <button onclick="openEnrollModal('{{ course.id }}', '{{ course.coursename|escapejs }}')" class="bg-[#FF9C00] text-white font-extrabold py-1.5 px-8 rounded-md hover:bg-[#e68a00] shadow-sm transition-colors">
+                <button onclick="openEnrollModal('{{ course.id }}', '{{ course.coursename|escapejs }}')" class="bg-[#FF9C00] text-white font-extrabold py-1.5 px-8 rounded-md hover:bg-[#e68a00] shadow-sm transition-colors hover:-translate-y-1 transform">
                     Enroll Now
                 </button>
                 {% else %}
-                <a href="{% url 'contact' %}" class="bg-[#6C2CB1] text-white font-extrabold py-1.5 px-8 rounded-md hover:bg-[#5a22a0] shadow-sm transition-colors">
+                <a href="{% url 'contact' %}" class="bg-[#6C2CB1] text-white font-extrabold py-1.5 px-8 rounded-md hover:bg-[#5a22a0] shadow-sm transition-colors hover:-translate-y-1 transform">
                     Contact to Enroll
                 </a>
                 {% endif %}
@@ -176,14 +177,14 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
                 {% if course.brochure %}
                     <button type="button" 
                             onclick="openBrochureModal('{{ course.coursename|escapejs }}', '{{ course.brochure.url }}', '{{ course.coursename|slugify }}_Brochure.pdf')" 
-                            class="border border-[#FF9C00] text-center text-gray-800 py-1.5 px-2 rounded hover:bg-gray-50 transition-colors">
+                            class="border border-[#FF9C00] text-center text-gray-800 py-1.5 px-2 rounded hover:bg-gray-50 transition-all hover:-translate-y-1 transform">
                         Download Brochure
                     </button>
                 {% endif %}
             </div>
         </div>
 
-        <div class="w-full lg:w-[280px] rounded-xl md:h-[280px] md:py-8 flex-shrink-0">
+        <div class="w-full lg:w-[280px] rounded-xl md:h-[280px] md:py-8 flex-shrink-0 reveal-right">
             <div class="justify-center items-center overflow-hidden border border-blue-100 rounded-md shadow-sm">
                 <div class="relative w-full h-[190px] bg-blue-100 flex items-center justify-center">
                     {% if course.short_video %}
@@ -203,10 +204,10 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
 {% with tools=course.get_tools_list %}
     {% if tools %}
     <div class="mb-10">
-        <h2 class="text-[17px] font-semibold text-black mb-6">Tools & Technologies Covered</h2>
-        <div class="flex flex-wrap gap-5 ">
+        <h2 class="text-[17px] font-semibold text-black mb-6 reveal-up">Tools & Technologies Covered</h2>
+        <div class="flex flex-wrap gap-5">
             {% for tool in tools %}
-            <div class="bg-[#FDE2B5] rounded-xl flex flex-col items-center justify-center w-[100px] h-[100px] shadow-sm transform hover:-translate-y-1 transition-transform p-2">
+            <div class="bg-[#FDE2B5] rounded-xl flex flex-col items-center justify-center w-[100px] h-[100px] shadow-sm transform hover:-translate-y-2 hover:shadow-lg transition-all p-2 reveal-up" style="transition-delay: {{ forloop.counter }}00ms;">
                 
                 <img src="https://cdn.simpleicons.org/{{ tool|lower|cut:' ' }}" 
                      alt="{{ tool }} logo" 
@@ -225,13 +226,12 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
     {% endif %}
 {% endwith %}
 
-<div class="mb-10">
+    <div class="mb-10 reveal-up">
         <h2 class="text-[17px] font-semibold text-black ">Course Overview</h2>
         <p class="text-[16px]  whitespace-pre-line">
             {{ course.course_overview }}
         </p>
-</div>
-
+    </div>
 
 {% if course.feature_cards.exists %}
 <section class="mx-auto p-4 ">
@@ -276,11 +276,11 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
 
 {% if course.faqs.exists %}
 <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <h2 class="text-2xl font-semibold text-center text-black mb-10">Frequently Asked Questions</h2>
+    <h2 class="text-2xl font-semibold text-center text-black mb-10 reveal-up">Frequently Asked Questions</h2>
     
     <div class="space-y-4">
         {% for faq in course.faqs.all %}
-        <div class="bg-[#F3E8FF] rounded-xl p-6 shadow-sm border border-[#E9D5FF]">
+        <div class="bg-[#F3E8FF] rounded-xl p-6 shadow-sm border border-[#E9D5FF] reveal-up transition-transform duration-300 hover:-translate-y-1 hover:shadow-md" style="transition-delay: {{ forloop.counter }}00ms;">
             <h4 class="font-bold text-black text-[17px] mb-3">{{ faq.question }}</h4>
             <p class="text-gray-700 text-[15px] leading-relaxed">{{ faq.answer }}</p>
         </div>
@@ -289,7 +289,6 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
 </section>
 {% endif %}
 
-    <!-- Enrollment Modal -->
     <div id="enrollModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 font-sans transition-opacity">
         <div class="bg-white w-full max-w-[1000px] rounded-3xl shadow-2xl relative flex flex-col max-h-[95vh] overflow-hidden">
             
@@ -460,7 +459,6 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
             </div>
         </div>
     </div>
-</div>
 
 
 <div id="brochureModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity duration-300 opacity-0">
@@ -501,6 +499,38 @@ Learn {{ course.coursename }} in Tirunelveli with our expert-led, job-oriented t
         </form>
     </div>
 </div>
+
+</div>
+
+<style>
+    .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal-active { opacity: 1; transform: translate(0, 0); }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const observerOptions = {
+            root: null,
+            threshold: 0.1, 
+            rootMargin: "0px 0px -50px 0px" 
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => {
+            observer.observe(el);
+        });
+    });
+</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

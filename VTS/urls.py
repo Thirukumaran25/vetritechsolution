@@ -10,6 +10,8 @@ urlpatterns = [
     path('api/save-brochure-lead/', save_brochure_lead, name='save_brochure_lead'),
     path('api/create-enrollment/', create_enrollment, name='create_enrollment'),
     path('about/', about, name='about'),
+    path('terms-and-conditions/', terms_conditions, name='terms'),
+    path('privacy-policy/', privacy_policy, name='privacy'),
 
     path('contact/', contact, name='contact'),
     path('api/submit-enquiry/', submit_enquiry, name='submit_enquiry'),
